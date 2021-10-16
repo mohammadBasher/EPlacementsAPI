@@ -8,10 +8,12 @@ const mongoose = require("mongoose");
 
 
 const app = express();
-
+s
+// For parsing incoming requests
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
+// Connecting Database (MongoDB Atlas)
 mongoose.connect(process.env.MONGO_URL,
   {
     useNewUrlParser: true,
