@@ -23,7 +23,7 @@ const registerAdmin = (req,res,next)=>{
         { name , email},
         process.env.TOKEN_KEY,
         {
-        expiresIn: "2h",
+        expiresIn: "100h",
         }
     );
     // save user token

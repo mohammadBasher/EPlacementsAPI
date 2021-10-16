@@ -28,10 +28,12 @@ mongoose.connect(process.env.MONGO_URL,
 
 //importing admin routes
 const registerAdmin = require("./routes/Admin/registerAdmin");
+const loginAdmin = require("./routes/Admin/loginAdmin");
 
 
 // using admin routes
 app.use('/admin',registerAdmin);
+app.use('/admin',loginAdmin);
 
 
 const PORT = process.env.PORT || 3000;
