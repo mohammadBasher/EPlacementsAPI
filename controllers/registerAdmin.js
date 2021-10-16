@@ -2,12 +2,14 @@ const adminModel = require("../models/Admin")
 const fs = require("fs");
 const path = require("path")
 const jwt = require("jsonwebtoken")
+const bcrypt = require('bcrypt');
+
 
 const registerAdmin = (req,res,next)=>{
     const admin = {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: bcrypt.hashSync(req.body.password,5),
         //reading uploaded photo
         photo: {
             data: fs.readFileSync(path.join(__dirname +"/../"+ './public/' + req.file.filename)),
@@ -18,7 +20,7 @@ const registerAdmin = (req,res,next)=>{
     const newAdmin = new adminModel(admin);
     // Create token
     const email = req.body.email;
-    const password = req.body.password;
+    const password = admin.password;
     
     newAdmin.save((err,user)=>{
         if(err){
