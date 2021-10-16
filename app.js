@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 
 
 const app = express();
-s
+
 // For parsing incoming requests
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
