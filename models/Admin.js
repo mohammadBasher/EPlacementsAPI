@@ -9,9 +9,6 @@ const admin = new mongoose.Schema({
     photo:{
         data : Buffer,
         contentType : String
-    },
-    token:{
-        type: String
     }
 });
 

@@ -18,16 +18,7 @@ const registerAdmin = (req,res,next)=>{
     const newAdmin = new adminModel(admin);
     // Create token
     const email = req.body.email;
-    const name = req.body.name;
-    const token = jwt.sign(
-        { name , email},
-        process.env.TOKEN_KEY,
-        {
-        expiresIn: "100h",
-        }
-    );
-    // save user token
-    newAdmin.token = token;
+    const password = req.body.password;
     
     newAdmin.save((err,user)=>{
         if(err){
@@ -37,8 +28,20 @@ const registerAdmin = (req,res,next)=>{
         }
         else{
 
-            console.log(user);
-            res.send(user);
+            //creating token
+            const token = jwt.sign(
+                { password , email},
+                process.env.TOKEN_KEY,
+                {
+                expiresIn: "100h",
+                }
+            );
+
+            // console.log(user);
+            // console.log(user.token);
+
+            // returning registered user with token to be save for future use
+            res.send({user,token});
         }
     })
 }

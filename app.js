@@ -28,11 +28,14 @@ mongoose.connect(process.env.MONGO_URL,
 
 //importing admin routes
 const registerAdmin = require("./routes/Admin/registerAdmin");
+const authAdmin = require("./routes/Admin/authAdmin");
 const loginAdmin = require("./routes/Admin/loginAdmin");
+
 
 
 // using admin routes
 app.use('/admin',registerAdmin);
+app.use('/admin',authAdmin);
 app.use('/admin',loginAdmin);
 
 
