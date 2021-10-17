@@ -2,23 +2,23 @@ const mongoose = require("mongoose");
 
 const admin = new mongoose.Schema({
     name : {
-        type:String,
-        required: true
+        type : String,
+        required : true
     },
     email : {
-        type:String,
-        required:true,
-        unique:true
+        type : String,
+        required : true,
+        unique : true
     },
     password : {
-        type:String,
-        required:true
+        type : String,
+        required : true
     },
-    photo:{
+    photo : {
         data : Buffer,
         contentType : String
     }
 });
 
-module.exports = new mongoose.model('admin',admin);
+module.exports = new mongoose.model('admin', admin);
 

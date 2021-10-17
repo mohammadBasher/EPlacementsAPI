@@ -1,87 +1,109 @@
 const mongoose = require("mongoose");
 
 const student = new mongoose.Schema({
-    reg_no:{
-        type: String,
-        required:true,
-        unique:true
+    reg_no : {
+        type : String,
+        required : true,
+        unique : true
     },
-    password:{
+    password : {
+        type : String,
+        required : true
+    },
+    name : {
+        type : String,
+        default : "Update your name"
+    },
+    course : {
+        type : String,
+        default : ""
+    },
+    branch : {
+        type : String,
+        default : ""
+    },
+    dob : {
+        type : String,
+        default : "01/01/2000"
+    },
+    email : {
+        type : String,
+        default : ""
+    },
+    skype_id : {
+        type : String,
+        default : ""
+    },
+    linkedin_id : {
         type:String,
-        required:true
+        default : ""
     },
-    name:{
-        type:String
+    gender : {
+        type : String,
+        default : ""
     },
-    course:{
-        type:String
+    category : {
+        type : String,
+        default : ""
     },
-    branch:{
-        type:String
+    physically_challenged : {
+        type : Boolean,
+        default : false
     },
-    dob:{
-        type:String
+    residential_status : {
+        type : String,
+        default : "Hosteller"
     },
-    email:{
-        type:String
+    guardian : {
+        type : String,
+        default : ""
     },
-    skype_id:{
-        type:String
+    present_address : {
+        type : String,
+        default : ""
     },
-    linkedin_id:{
-        type:String
+    permanent_address : {
+        type : String,
+        default : ""
     },
-    gender:{
-        type:String
+    maritial_status : {
+        type : Boolean,
+        default : false
     },
-    category:{
-        type:String
+    state : {
+        type : String,
+        default : ""
     },
-    physically_challenged:{
-        type:Boolean
+    country : {
+        type : String,
+        default : ""
     },
-    residential_status:{
-        type:String
-    },
-    guardian:{
-        type:String
-    },
-    present_address:{
-        type:String
-    },
-    permanent_address:{
-        type:String
-    },
-    maritial_status:{
-        type:String
-    },
-    state:{
-        type:String
-    },
-    country:{
-        type:String
-    },
-    photo:{
+    photo : {
         data : Buffer,
-        contentType : String
+        contentType : String,
+        default : ""
     },
-    resume:{
+    resume : {
         data : Buffer,
-        contentType : String
+        contentType : String,
+        default : ""
     },
-    credits:{
-        type:Number
+    credits : {
+        type : Number,
+        default : 10
     },
-    status:{
-        type:String
+    status : {
+        type : String,
+        default : "registered"
     },
-    remarks:{
-        type:String
+    remarks : {
+        type : String,
+        default : ""
     },
-    details_id:{
-        type:mongoose.Schema.Types.ObjectId
+    details_id : {
+        type : mongoose.Schema.Types.ObjectId
     }
 });
 
-module.exports = new mongoose.model('student',student);
+module.exports = new mongoose.model('student', student);
 
