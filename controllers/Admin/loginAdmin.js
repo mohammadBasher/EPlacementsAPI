@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
-const adminModel = require("../models/Admin");
+const adminModel = require("../../models/Admin");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt")
 
 const loginAdmin = (req,res,next)=>{
     const email = req.body.email;
     var password = req.body.password;
-    // console.log(req.body,email,password);
+    console.log(req.body,email,password);
     adminModel.findOne({email},(err,user)=>{
+        console.log(email);
+        console.log(user);
         if(err || !user){
             console.log("Please register first");
             res.send("User not registered");

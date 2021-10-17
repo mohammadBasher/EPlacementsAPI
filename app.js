@@ -39,6 +39,20 @@ app.use('/admin',authAdmin);
 app.use('/admin',loginAdmin);
 
 
+// importing student routes
+const registerStudent = require("./routes/Students/registerStudent");
+const loginStudent = require("./routes/Students/loginStudent");
+const authStudent = require("./routes/Students/authStudent");
+
+
+//using Student routes
+app.use('/student',registerStudent);
+app.use('/student',loginStudent);
+app.use('/student',authStudent);
+
+
+
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,()=>{

@@ -1,8 +1,8 @@
-const adminModel = require("../models/Admin");
+const adminModel = require("../../models/Student");
 const jwt = require("jsonwebtoken");
 
-const authAdmin = (req,res,next)=>{
-    const token = req.body.token;
+const authStudent = (req,res,next)=>{
+    const token = req.header('Authorization');
     console.log(token);
     if(!token){
         return res.send("A token is required for authorisation");
@@ -19,11 +19,11 @@ const authAdmin = (req,res,next)=>{
 }
 
 const next_function = (req,res)=>{
-    console.log(req.user);
-    const email = req.user.email;
+    // console.log(req.user);
+    const reg_no = req.user.reg_no;
     const password = req.user.password;
-    // console.log(req.body,email,password);
-    adminModel.findOne({email,password},(err,user)=>{
+    // console.log(req.body,reg_no,password);
+    adminModel.findOne({reg_no,password},(err,user)=>{
         if(err || !user){
             console.log("Please login first");
             res.send("User not logged in");
@@ -35,5 +35,5 @@ const next_function = (req,res)=>{
 }
 
 module.exports = {
-    authAdmin
+    authStudent
 }

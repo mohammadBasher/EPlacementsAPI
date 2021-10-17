@@ -1,11 +1,19 @@
 const mongoose = require("mongoose");
 
 const admin = new mongoose.Schema({
-    name : String,
-    email : {
-        type:String
+    name : {
+        type:String,
+        required: true
     },
-    password : String,
+    email : {
+        type:String,
+        required:true,
+        unique:true
+    },
+    password : {
+        type:String,
+        required:true
+    },
     photo:{
         data : Buffer,
         contentType : String

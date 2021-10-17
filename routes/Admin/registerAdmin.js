@@ -13,7 +13,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 
 //importing controler for registering admin
-const { registerAdmin } = require("../../controllers/registerAdmin")
+const { registerAdmin } = require("../../controllers/Admin/registerAdmin")
 
 const router = express.Router();
 
