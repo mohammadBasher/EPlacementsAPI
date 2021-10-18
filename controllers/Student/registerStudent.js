@@ -7,21 +7,28 @@ const bcrypt = require('bcrypt');
 
 const registerStudent = (req,res,next)=>{
     // Checking if any of the field is empty
+    const response = {};
     if(!req.body.reg_no || !req.body.password){
-        res.send("Please fill all columns");
+        response.success = "false";
+        response.message = "reg_no and password is required";
+        return res.send(response);
     }
 
     const reg_no = req.body.reg_no;
     // Checking wheather Student with reg_no already registered
     studentModel.findOne({reg_no},(err,user)=>{
-        console.log("findOne function");
+        // console.log("findOne function");
         if(err){
+            response.success = "false";
+            response.message = "Some error occurred";
             console.log(err);
-            res.send("Some error occurred");
+            res.send(response);
         }
         if(user){
             // if student exist send response
-            return res.send("User already exists");
+            response.success = "false";
+            response.message = "User already exists";
+            return res.send(response);
         }
         else{
             // if student is not found then register a new student
@@ -38,9 +45,10 @@ const registerStudent = (req,res,next)=>{
             newStudent.save((err,user)=>{
                 console.log("save function");
                 if(err){
-                    console.log("some error occurred");
+                    response.success = "false";
+                    response.message = "Some error occured";
                     console.log(err);
-                    return res.send("some error occurred");
+                    return res.send(response);
                 }
                 else{
         
@@ -55,9 +63,13 @@ const registerStudent = (req,res,next)=>{
         
                     // console.log(user);
                     // console.log(user.token);
-        
+
+                    response.success = "true";
+                    response.message = "User registered successfully";
+                    response.user = user;
+                    response.token = token;
                     // returning registered user with token to be save for future use
-                    return res.send({user,token});
+                    return res.send(response);
                 }
             })
         }

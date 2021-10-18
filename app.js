@@ -43,16 +43,18 @@ app.use('/admin',loginAdmin);
 const registerStudent = require("./routes/Students/registerStudent");
 const loginStudent = require("./routes/Students/loginStudent");
 const authStudent = require("./routes/Students/authStudent");
+const completeProfile = require("./routes/Students/completeProfile");
 
 
 //using Student routes
 app.use('/student',registerStudent);
 app.use('/student',loginStudent);
 app.use('/student',authStudent);
+app.use('/student',completeProfile);
 
 
 
-
+//defining port to run the server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,()=>{

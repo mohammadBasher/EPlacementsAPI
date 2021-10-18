@@ -7,8 +7,12 @@ const bcrypt = require('bcrypt');
 
 const registerAdmin = (req,res,next)=>{
 
+    const response = {};
+
     if(!req.body.name || !req.body.email || !req.body.password || !req.file.filename){
-        res.send("Please fill all columns");
+        response.success = "false";
+        response.message = "All fields are required";
+        res.send(response);
     }
 
     const email = req.body.email;
@@ -19,7 +23,9 @@ const registerAdmin = (req,res,next)=>{
             console.log(err);
         }
         if(user){
-            return res.send("User already exists");
+            response.success = "false";
+            response.message = "User already exists";
+            return res.send(response);
         }
         else{
             const admin = {
@@ -40,9 +46,10 @@ const registerAdmin = (req,res,next)=>{
             newAdmin.save((err,user)=>{
                 console.log("save function");
                 if(err){
-                    console.log("some error occurred");
+                    response.success = "false";
+                    response.message = "some error occurred while saving";
                     console.log(err);
-                    return res.send("some error occurred");
+                    return res.send(response);
                 }
                 else{
         
@@ -57,9 +64,13 @@ const registerAdmin = (req,res,next)=>{
         
                     // console.log(user);
                     // console.log(user.token);
-        
+
+                    response.success = "true";
+                    response.message = "Admin registered Successfully";
+                    response.user = user;
+                    response.token = token;
                     // returning registered user with token to be save for future use
-                    return res.send({user,token});
+                    return res.send(response);
                 }
             })
         }
