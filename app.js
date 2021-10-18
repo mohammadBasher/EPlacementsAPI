@@ -10,11 +10,12 @@ const mongoose = require("mongoose");
 const app = express();
 
 // For parsing incoming requests
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+// app.use(express.json());
 
 // Connecting Database (MongoDB Atlas)
-mongoose.connect(process.env.MONGO_URL,
+mongoose.connect("mongodb://localhost:27017/EPlacements",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -26,33 +27,39 @@ mongoose.connect(process.env.MONGO_URL,
     console.log(err);
 })
 
+
+//importing middleware
+const {authAdmin} = require("./middleware/authAdmin");
+const {authStudent} = require("./middleware/authStudent");
+
 //importing admin routes
 const registerAdmin = require("./routes/Admin/registerAdmin");
-const authAdmin = require("./routes/Admin/authAdmin");
 const loginAdmin = require("./routes/Admin/loginAdmin");
-
+const addCompany = require("./routes/Admin/addCompany");
 
 
 // using admin routes
 app.use('/admin',registerAdmin);
-app.use('/admin',authAdmin);
 app.use('/admin',loginAdmin);
+app.use('/admin',authAdmin);
+app.use('/admin',addCompany);
 
 
 // importing student routes
 const registerStudent = require("./routes/Students/registerStudent");
 const loginStudent = require("./routes/Students/loginStudent");
-const authStudent = require("./routes/Students/authStudent");
-const completeProfile = require("./routes/Students/completeProfile");
+const updateStudent = require("./routes/Students/update/updateStudent");
+const updatePhoto = require("./routes/Students/update/updatePhoto");
+const updateResume = require("./routes/Students/update/updateResume");
 
 
 //using Student routes
 app.use('/student',registerStudent);
 app.use('/student',loginStudent);
 app.use('/student',authStudent);
-app.use('/student',completeProfile);
-
-
+app.use('/student',updateStudent);
+app.use('/student',updatePhoto);
+app.use('/student',updateResume);
 
 //defining port to run the server
 const PORT = process.env.PORT || 3000;

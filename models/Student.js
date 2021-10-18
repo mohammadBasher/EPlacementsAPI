@@ -100,8 +100,65 @@ const student = new mongoose.Schema({
         type : String,
         default : ""
     },
-    details_id : {
-        type : mongoose.Schema.Types.ObjectId
+    school_10 : {
+        type : String,
+        default : ""
+    },
+    board_10 : {
+        type : String,
+        default : ""
+    },
+    year_10 : {
+        type : Number,
+        default : 0
+    },
+    percent_10 : {
+        type : Number,
+        default : 0
+    },
+    school_12 : {
+        type : String,
+        default : ""
+    },
+    board_12 : {
+        type : String,
+        default : ""
+    },
+    year_12 : {
+        type : Number,
+        default : 0
+    },
+    percent_12 : {
+        type : Number,
+        default : 0
+    },
+    spi_array : {
+        type : Array,
+        default :[]
+    },
+    cpi : {
+        type : Number,
+        default : 0
+    },
+    backlogs : {
+        type : Number,
+        default : 0
+    },
+    project_title : {
+        type : String,
+        default : ""
+    },
+    project_desc : {
+        type : String,
+        default : ""
+    },
+    intern_title : {
+        type : String,
+        default : ""
+    },
+    intern_desc : {
+        type : String,
+        default : ""
     }
 });
 

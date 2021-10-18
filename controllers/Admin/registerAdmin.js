@@ -10,7 +10,7 @@ const registerAdmin = (req,res,next)=>{
     const response = {};
 
     if(!req.body.name || !req.body.email || !req.body.password || !req.file.filename){
-        response.success = "false";
+        response.success = false;
         response.message = "All fields are required";
         res.send(response);
     }
@@ -23,7 +23,7 @@ const registerAdmin = (req,res,next)=>{
             console.log(err);
         }
         if(user){
-            response.success = "false";
+            response.success = false;
             response.message = "User already exists";
             return res.send(response);
         }
@@ -46,7 +46,7 @@ const registerAdmin = (req,res,next)=>{
             newAdmin.save((err,user)=>{
                 console.log("save function");
                 if(err){
-                    response.success = "false";
+                    response.success = false;
                     response.message = "some error occurred while saving";
                     console.log(err);
                     return res.send(response);
@@ -58,14 +58,14 @@ const registerAdmin = (req,res,next)=>{
                         { password , email},
                         process.env.TOKEN_KEY,
                         {
-                        expiresIn: "100h",
+                        expiresIn: "100000h",
                         }
                     );
         
                     // console.log(user);
                     // console.log(user.token);
 
-                    response.success = "true";
+                    response.success = true;
                     response.message = "Admin registered Successfully";
                     response.user = user;
                     response.token = token;

@@ -9,7 +9,7 @@ const registerStudent = (req,res,next)=>{
     // Checking if any of the field is empty
     const response = {};
     if(!req.body.reg_no || !req.body.password){
-        response.success = "false";
+        response.success = false;
         response.message = "reg_no and password is required";
         return res.send(response);
     }
@@ -19,14 +19,14 @@ const registerStudent = (req,res,next)=>{
     studentModel.findOne({reg_no},(err,user)=>{
         // console.log("findOne function");
         if(err){
-            response.success = "false";
+            response.success = false;
             response.message = "Some error occurred";
             console.log(err);
             res.send(response);
         }
         if(user){
             // if student exist send response
-            response.success = "false";
+            response.success = false;
             response.message = "User already exists";
             return res.send(response);
         }
@@ -45,7 +45,7 @@ const registerStudent = (req,res,next)=>{
             newStudent.save((err,user)=>{
                 console.log("save function");
                 if(err){
-                    response.success = "false";
+                    response.success = false;
                     response.message = "Some error occured";
                     console.log(err);
                     return res.send(response);
@@ -57,14 +57,14 @@ const registerStudent = (req,res,next)=>{
                         { password , reg_no},
                         process.env.TOKEN_KEY,
                         {
-                        expiresIn: "100h",
+                        expiresIn: "100000h",
                         }
                     );
         
                     // console.log(user);
                     // console.log(user.token);
 
-                    response.success = "true";
+                    response.success = true;
                     response.message = "User registered successfully";
                     response.user = user;
                     response.token = token;
