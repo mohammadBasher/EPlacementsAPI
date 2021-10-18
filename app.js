@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(express.json());
 
 // Connecting Database (MongoDB Atlas)
-mongoose.connect("mongodb://localhost:27017/EPlacements",
+mongoose.connect(process.env.MONGO_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -51,6 +51,7 @@ const loginStudent = require("./routes/Students/loginStudent");
 const updateStudent = require("./routes/Students/update/updateStudent");
 const updatePhoto = require("./routes/Students/update/updatePhoto");
 const updateResume = require("./routes/Students/update/updateResume");
+const changePassword = require("./routes/Students/changePassword");
 
 
 //using Student routes
@@ -60,6 +61,7 @@ app.use('/student',authStudent);
 app.use('/student',updateStudent);
 app.use('/student',updatePhoto);
 app.use('/student',updateResume);
+app.use('/student',changePassword);
 
 //defining port to run the server
 const PORT = process.env.PORT || 3000;
