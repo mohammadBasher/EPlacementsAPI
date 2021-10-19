@@ -5,17 +5,18 @@ const registration = new mongoose.Schema({
         type : mongoose.SchemaTypes.ObjectId,
         required : true
     },
-    student_id : {
-        type : mongoose.SchemaTypes.ObjectId,
+    reg_no : {
+        type : Number,
         required : true
     },
     year : {
         type : Number,
-        required : true
+        required : true,
+        default : 4
     },
     timestamp : {
-        type : Date,
-        default : Date.now
+        type : Number,
+        default : new Date().getTime()
     },
     status : {
         type : String,

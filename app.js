@@ -39,10 +39,10 @@ const addCompany = require("./routes/Admin/addCompany");
 
 
 // using admin routes
-app.use('/admin',registerAdmin);
-app.use('/admin',loginAdmin);
-app.use('/admin',authAdmin);
-app.use('/admin',addCompany);
+app.use('/admin',registerAdmin); // to register an admin
+app.use('/admin',loginAdmin); // to login admin
+app.use('/admin',authAdmin); // middleware to authenticate admin
+app.use('/admin',addCompany); // to add a visiting company
 
 
 // importing student routes
@@ -52,16 +52,27 @@ const updateStudent = require("./routes/Students/update/updateStudent");
 const updatePhoto = require("./routes/Students/update/updatePhoto");
 const updateResume = require("./routes/Students/update/updateResume");
 const changePassword = require("./routes/Students/changePassword");
+const registerForCompany = require("./routes/Students/registerForCompany");
+const getRegisteredCompanies = require("./routes/Students/getRegisteredCompanies");
 
 
 //using Student routes
-app.use('/student',registerStudent);
-app.use('/student',loginStudent);
-app.use('/student',authStudent);
-app.use('/student',updateStudent);
-app.use('/student',updatePhoto);
-app.use('/student',updateResume);
-app.use('/student',changePassword);
+app.use('/student',registerStudent); //to register a student
+app.use('/student',loginStudent); //to login a student
+app.use('/student',authStudent); // middleware to authenticate a student
+app.use('/student',updateStudent); // to update student information
+app.use('/student',updatePhoto); // to update student photo
+app.use('/student',updateResume); // to update student resume
+app.use('/student',changePassword); // to change student password
+app.use('/student',registerForCompany); // to register for a company
+app.use('/student',getRegisteredCompanies); // to get companies for which student registered
+
+//importing common routes
+const currentOpening = require("./routes/currentOpening"); // to get current openings
+
+//using common routes
+app.use(currentOpening); // getting current openings
+
 
 //defining port to run the server
 const PORT = process.env.PORT || 3000;

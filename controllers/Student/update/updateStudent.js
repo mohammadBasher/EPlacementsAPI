@@ -44,6 +44,7 @@ const updateStudent = (req,res,next)=>{
                     student[key] = data[key];
                 }
             });
+            student.status = "completed";
             // initialise a updateStudent to store updated details
             const updateStudent = student;
             // Update details in the database
