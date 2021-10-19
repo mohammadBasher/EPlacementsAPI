@@ -5,13 +5,18 @@ const addCompany = (req,res,next) => {
     console.log(data);
     const response = {};
     const name = data.name;
-    CompanyModel.findOne({name},(err,company)=>{
+    const job_profile = data.job_profile;
+    const job_location = data.job_location;
+    CompanyModel.findOne({name, job_profile, job_location},(err,company)=>{
         if(err){
+            response.success = false;
+            response.msg = "An error occured, try again";
             console.log(err);
+            return res.send(response);
         }
         else if(company){
             response.success = false;
-            response.msg = "company already added";
+            response.msg = "Company already exists with given name and job profile";
             return res.send(response);
         }
         else{
@@ -19,7 +24,7 @@ const addCompany = (req,res,next) => {
             newCompany.save((err,company)=>{
                 if(err){
                     response.success = false;
-                    response.message = "Some error occurred";
+                    response.message = "An error occured, try again";
                     console.log(err);
                     return res.send(response);
                 }

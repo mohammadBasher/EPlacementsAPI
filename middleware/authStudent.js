@@ -5,20 +5,18 @@ const jwt = require("jsonwebtoken");
 
 const authStudent = (req,res,next)=>{
     const token = req.header('Authorization');
-    // console.log(token);
     const response = {};
     if(!token){
         response.success = false;
-        response.message = "User is not logged in or token not exist";
+        response.message = "Token required for authorisation";
         return res.send(response);
     }
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
         req.user = decoded;
-        // console.log(req.user);
         if(!req.user.reg_no || !req.user.password){
             response.success = false;
-            response.message = "Token is invalid";
+            response.message = "Invalid token";
             return res.send(response);
         }
         const reg_no = req.user.reg_no;

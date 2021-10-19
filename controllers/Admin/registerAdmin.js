@@ -6,25 +6,25 @@ const bcrypt = require('bcrypt');
 
 
 const registerAdmin = (req,res,next)=>{
-
+    const email = req.body.email;
     const response = {};
-
     if(!req.body.name || !req.body.email || !req.body.password || !req.file.filename){
         response.success = false;
         response.message = "All fields are required";
         res.send(response);
     }
 
-    const email = req.body.email;
-
     adminModel.findOne({email},(err,user)=>{
         console.log("findOne function");
         if(err){
+            response.success = false;
+            response.message = "An error occured, try again";
             console.log(err);
+            return res.send(response);
         }
         if(user){
             response.success = false;
-            response.message = "User already exists";
+            response.message = "Admin already exists";
             return res.send(response);
         }
         else{
@@ -40,36 +40,27 @@ const registerAdmin = (req,res,next)=>{
             }
             console.log(admin);
             const newAdmin = new adminModel(admin);
-            // Create token
             const password = admin.password;
-            
             newAdmin.save((err,user)=>{
-                console.log("save function");
                 if(err){
                     response.success = false;
-                    response.message = "some error occurred while saving";
+                    response.message = "An error occured, try again";
                     console.log(err);
                     return res.send(response);
                 }
                 else{
-        
                     //creating token
-                    const token = jwt.sign(
-                        { password , email},
+                    const token = jwt.sign({ password , email},
                         process.env.TOKEN_KEY,
                         {
                         expiresIn: "100000h",
                         }
                     );
-        
-                    // console.log(user);
-                    // console.log(user.token);
 
                     response.success = true;
-                    response.message = "Admin registered Successfully";
+                    response.message = "Admin registered successfully";
                     response.user = user;
                     response.token = token;
-                    // returning registered user with token to be save for future use
                     return res.send(response);
                 }
             })

@@ -18,4 +18,4 @@ const { updatePhoto } = require("../../../controllers/Student/update/updatePhoto
 const router = express.Router();
 
 // upload is a middle to upload the photo in the public folder
-module.exports = router.post('/updatePhoto',upload.single('photo'),updatePhoto);
+module.exports = router.post('/updatePhoto', upload.single('photo'), updatePhoto);

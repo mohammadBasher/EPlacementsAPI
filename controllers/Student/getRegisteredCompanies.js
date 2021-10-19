@@ -7,11 +7,12 @@ const getRegisteredCompanies = async(req,res,next)=>{
     // getting reg_no and password from the jwt token
     const reg_no = req.user.reg_no;
     const password = req.user.password;
-    registerationModel.find({reg_no},{company_id:1,_id:0},(err,companyIds)=>{
+    registerationModel.find({reg_no},{company_id:1,_id:0},async(err,companyIds)=>{
         if(err){
             // If student is not found or some error occurred return 
             response.success = false;
-            response.message = "Some error occurred while fetching companies";
+            response.message = "An error occured while fetching registered companies";
+            console.log(err);
             return res.send(response);
         }
         else{

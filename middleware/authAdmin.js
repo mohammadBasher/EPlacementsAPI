@@ -6,22 +6,19 @@ const bcrypt = require("bcrypt");
 
 const authAdmin = (req,res,next)=>{
     const token = req.header('Authorization');
-    // console.log(token);
     const response = {};
-    // Checking wheather token exists or not
     if(!token){
         response.success = false;
-        response.message = "A token is required for authorisation";
+        response.message = "Token required for authorisation";
         return res.send(response);
     }
     try {
         // decoding and verifying token
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
         req.user = decoded;
-        // console.log(req.user);
         if(!req.user.email || !req.user.password){
             response.success = false;
-            response.message = "Token is invalid";
+            response.message = "Invalid token";
             return res.send(response);
         }
         const email = req.user.email;

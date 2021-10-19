@@ -4,4 +4,4 @@ const { registerForCompany } = require("../../controllers/Student/registerForCom
 
 const router = express.Router();
 
-module.exports = router.post('/registerForCompany',registerForCompany);
+module.exports = router.post('/registerForCompany', registerForCompany);

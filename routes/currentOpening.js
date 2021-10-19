@@ -4,4 +4,4 @@ const {currentOpening} = require("../controllers/currentOpening");
 
 const router = express.Router();
 
-module.exports = router.get('/currentOpening',currentOpening);
+module.exports = router.get('/currentOpening', currentOpening);

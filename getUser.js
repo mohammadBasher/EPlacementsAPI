@@ -4,63 +4,62 @@ const jwt = require("jsonwebtoken");
 
 const getUser = (req,res,next)=>{
     const token = req.header('Authorization');
-    // console.log(token);
     const response = {};
     // Checking wheather token exists or not
     if(!token){
         response.success = false;
-        response.message = "User is not logged in!! Please log in first";
+        response.message = "Invalid token, login again";
         return res.send(response);
     }
     try {
         // decoding and verifying token
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
         req.user = decoded;
-        // console.log(req.user);
+        // if user is student
         if(!req.user.email){
             const reg_no = req.user.reg_no;
             const password = req.user.password;
             studentModel.findOne({reg_no},(err,user)=>{
                 // console.log(reg_no);
-                // console.log(user);
                 if(err || !user){
                     response.success = false;
-                    response.message = "User is not registered";
+                    response.message = "User not registered";
                     console.log("Please register first");
                     res.send(response);
                 }
                 else if(password!=user.password){
                     response.success = false;
-                    response.message = "Incorrect Password";
+                    response.message = "Incorrect password, login again";
                     res.send(response);
                 }
                 else{
                     response.success = true;
-                    response.message = "Logged in student found!";
+                    response.message = "Student found";
                     response.user = user;
                     // returning registered user with token to be save for future use
                     res.send(response);
                 }
             })        
         }
+        // if user is admin
         else{
             const email = req.user.email;
             const password = req.user.password;
             adminModel.findOne({email},(err,user)=>{
                 if(err || !user){
                     response.success = false;
-                    response.message = "User is not registered";
+                    response.message = "User not registered";
                     console.log("Please register first");
                     res.send(response);
                 }
                 else if(password!=user.password){
                     response.success = false;
-                    response.message = "Incorrect Password";
+                    response.message = "Incorrect password, login again";
                     res.send(response);
                 }
                 else{
                     response.success = true;
-                    response.message = "Logged in admin found!";
+                    response.message = "Admin found";
                     response.user = user;
                     // returning registered user with token to be save for future use
                     res.send(response);

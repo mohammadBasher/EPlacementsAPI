@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URL,
     useUnifiedTopology: true
   }
 ).then(()=>{
-    console.log("Database Connect!!!");
+    console.log("Database Connected!!!");
 })
 .catch((err)=>{
     console.log(err);

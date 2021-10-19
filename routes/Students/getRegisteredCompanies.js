@@ -4,4 +4,4 @@ const {getRegisteredCompanies} = require("../../controllers/Student/getRegistere
 
 const router = express.Router();
 
-module.exports = router.get('/getRegisteredCompanies',getRegisteredCompanies);
+module.exports = router.get('/getRegisteredCompanies', getRegisteredCompanies);

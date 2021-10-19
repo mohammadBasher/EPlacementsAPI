@@ -18,4 +18,4 @@ const { registerAdmin } = require("../../controllers/Admin/registerAdmin")
 const router = express.Router();
 
 // upload is a middle to upload the photo in the public folder
-module.exports = router.post('/registerAdmin',upload.single('photo'),registerAdmin);
+module.exports = router.post('/registerAdmin', upload.single('photo'), registerAdmin);

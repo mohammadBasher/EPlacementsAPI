@@ -10,7 +10,7 @@ const loginStudent = (req,res,next)=>{
     console.log(req.body,reg_no,password);
     if(!req.body.reg_no || !req.body.password){
         response.success = false;
-        response.message = "reg_no and password is required";
+        response.message = "Registration no. and password are required";
         return res.send(response);
     }
     studentModel.findOne({reg_no},(err,user)=>{
@@ -18,20 +18,19 @@ const loginStudent = (req,res,next)=>{
         // console.log(user);
         if(err || !user){
             response.success = false;
-            response.message = "User is not registered";
+            response.message = "Student not registered";
             console.log("Please register first");
             res.send(response);
         }
         else if(!bcrypt.compareSync(password, user.password)){
             response.success = false;
-            response.message = "Incorrect Password";
+            response.message = "Incorrect password, try again";
             res.send(response);
         }
         else{
             //creating token
             password = user.password;
-            const token = jwt.sign(
-                { password , reg_no},
+            const token = jwt.sign({ password , reg_no},
                 process.env.TOKEN_KEY,
                 {
                   expiresIn: "100000h",
@@ -39,11 +38,9 @@ const loginStudent = (req,res,next)=>{
             );
             
             response.success = true;
-            response.message = "User logged in successfully";
+            response.message = "Student logged in successfully";
             response.user = user;
             response.token = token;
-
-            // returning registered user with token to be save for future use
             res.send(response);
         }
     })

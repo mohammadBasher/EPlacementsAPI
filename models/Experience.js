@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const experience = new mongoose.Schema({
     year : {
         type : String,
-        required : true,
-        unique : true
+        required : true
     },
     student_id : {
         type : mongoose.SchemaTypes.ObjectId,
@@ -12,19 +11,23 @@ const experience = new mongoose.Schema({
     },
     student_name : {
         type : String,
-        required : true
+        required : true,
+        default : "NA"
     },
     company_name : {
         type : String,
-        required : true
+        required : true,
+        default : "NA"
     },
     job_profile : {
         type : String,
-        required : true
+        required : true,
+        default : "NA"
     },
     job_location : {
         type : String,
-        required : true
+        required : true,
+        default : "NA"
     },
     rating : {
         type : Number,
@@ -33,11 +36,13 @@ const experience = new mongoose.Schema({
     },
     desc : {
         type : String,
-        required : true
+        required : true,
+        default : "NA"
     },
     timestamp : {
-        type : Date,
-        default : Date.now
+        type : Number,
+        required : true,
+        default : new Date().getTime()
     }
 });
 

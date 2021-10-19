@@ -13,13 +13,13 @@ const registerForCompany = (req,res,next)=>{
         if(err || !student){
             // If student is not found or some error occurred return 
             response.success = false;
-            response.message = "Some error occurred while finding reg_no";
+            response.message = "An error occurred, try again";
             return res.send(response);
         }
         else if(password!=student.password){
             // If password doesn't match return with Invalid Password
             response.success = false;
-            response.message = "Invalid Password";
+            response.message = "Invalid password, login again";
             return res.send(response);
         }
         else{
@@ -30,12 +30,12 @@ const registerForCompany = (req,res,next)=>{
                 if(err){
                     console.log(err);
                     response.success = false;
-                    response.message = "Some error occurred";
+                    response.message = "An error occurred";
                     return res.send(response);
                 }
                 else{
                     response.success = true;
-                    response.message = "Registration completed";
+                    response.message = "Registration completed successfully";
                     response.registration = registration;
                     return res.send(response);
                 }

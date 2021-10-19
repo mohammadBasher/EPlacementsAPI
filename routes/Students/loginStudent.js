@@ -4,4 +4,4 @@ const {loginStudent} = require("../../controllers/Student/loginStudent");
 
 const router = express.Router();
 
-module.exports = router.post('/loginStudent',loginStudent);
+module.exports = router.post('/loginStudent', loginStudent);

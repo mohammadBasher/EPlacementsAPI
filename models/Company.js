@@ -8,7 +8,7 @@ const company = new mongoose.Schema({
     job_profile : {
         type : String,
         required : true,
-        default:"SDE"
+        default:"NA"
     },
     job_location : {
         type : String,
@@ -32,7 +32,7 @@ const company = new mongoose.Schema({
     },
     ctc : {
         type : Number,
-        default: 10
+        default: 0
     },
     allowed_branches : {
         type : Array,

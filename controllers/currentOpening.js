@@ -2,8 +2,8 @@ const companyModel = require("../models/Company");
 
 const currentOpening = (req,res,next)=>{
     const response = {};
-
-    companyModel.find({},(err,company)=>{
+    const currentTime = new Date().getTime();
+    companyModel.find({reg_deadline: {$gt: currentTime}},(err,company)=>{
         if(err){
             response.success = false;
             response.message = "Some error occurred ";

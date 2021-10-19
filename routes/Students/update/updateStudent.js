@@ -4,4 +4,4 @@ const {updateStudent} = require("../../../controllers/Student/update/updateStude
 
 const router = express.Router();
 
-module.exports = router.post('/updateStudent',updateStudent);
+module.exports = router.post('/updateStudent', updateStudent);

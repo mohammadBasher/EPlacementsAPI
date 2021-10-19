@@ -134,7 +134,7 @@ const student = new mongoose.Schema({
     },
     spi_array : {
         type : Array,
-        default :[]
+        default : []
     },
     cpi : {
         type : Number,

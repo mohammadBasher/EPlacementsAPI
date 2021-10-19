@@ -9,8 +9,6 @@ const loginAdmin = (req,res,next)=>{
     const response = {};
     console.log(req.body,email,password);
     adminModel.findOne({email},(err,user)=>{
-        // console.log(email);
-        // console.log(user);
         if(err || !user){
             response.success = false;
             response.message = "Admin not registered";
@@ -25,11 +23,10 @@ const loginAdmin = (req,res,next)=>{
         else{
             //creating token
             password = user.password;
-            const token = jwt.sign(
-                { password , email},
+            const token = jwt.sign({ password , email},
                 process.env.TOKEN_KEY,
                 {
-                  expiresIn: "100000h",
+                  expiresIn: "10000h",
                 }
             );
 
@@ -37,7 +34,6 @@ const loginAdmin = (req,res,next)=>{
             response.message = "Logged in successfully";
             response.user = user;
             response.token = token;
-              // returning registered user with token to be save for future use
             return res.send(response);
         }
     })
