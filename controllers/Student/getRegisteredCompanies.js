@@ -17,11 +17,12 @@ const getRegisteredCompanies = async(req,res,next)=>{
         }
 
         const companies = [];
-        companyIds.forEach(company=>{
-            const tmp = await companyModel.findOne({_id:company.company_id});
+        for(let i=0; i<companyIds.length; i++){
+            const company_id = companyIds[i].company_id;
+            const tmp = await companyModel.findOne({_id:company_id});
             companies.push(tmp);
             console.log(tmp);
-        })
+        }
 
         console.log(companies);
         response.success = true;
