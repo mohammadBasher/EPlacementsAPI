@@ -74,6 +74,11 @@ const currentOpening = require("./routes/currentOpening"); // to get current ope
 app.use(currentOpening); // getting current openings
 
 
+// default route to get the details of logged in user
+const {getUser} = require('./getUser')
+app.get('/',getUser);
+
+
 //defining port to run the server
 const PORT = process.env.PORT || 3000;
 

@@ -42,7 +42,7 @@ const company = new mongoose.Schema({
     reg_deadline : {
         type : Number,
         required : true,
-        default : new Date().getTime() + 24*60*60*1000
+        default : new Date().getTime()
     },
     total_students : {
         type : Number,

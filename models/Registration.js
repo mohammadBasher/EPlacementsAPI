@@ -12,7 +12,7 @@ const registration = new mongoose.Schema({
     year : {
         type : Number,
         required : true,
-        default : 4
+        default : 2023
     },
     timestamp : {
         type : Number,
