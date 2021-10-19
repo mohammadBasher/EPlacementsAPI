@@ -18,11 +18,11 @@ const getRegisteredCompanies = async(req,res,next)=>{
 
         const companies = [];
         companyIds.forEach(company=>{
-            const company = await companyModel.findOne({_id:company.company_id});
-            companies.push(company);
-            console.log(company);
+            const tmp = await companyModel.findOne({_id:company.company_id});
+            companies.push(tmp);
+            console.log(tmp);
         })
-        
+
         console.log(companies);
         response.success = true;
         response.message = "Registered companies fetched successfully";
