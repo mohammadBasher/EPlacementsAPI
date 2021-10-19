@@ -7,38 +7,34 @@ const getRegisteredCompanies = async(req,res,next)=>{
     // getting reg_no and password from the jwt token
     const reg_no = req.user.reg_no;
     const password = req.user.password;
-    registerationModel.find({reg_no},{company_id:1,_id:0},async(err,companyIds)=>{
-        if(err){
-            // If student is not found or some error occurred return 
+    try {
+        const companyIds = await registerationModel.find({reg_no},{company_id:1,_id:0});
+        if(!companyIds){
             response.success = false;
             response.message = "An error occured while fetching registered companies";
             console.log(err);
             return res.send(response);
         }
-        else{
-            const companies = [];
-            console.log(companyIds);
-            companyIds.forEach(company=>{
-            await companyModel.findOne({_id:company.company_id},(err,company)=>{
-                    companies.push(company);
-                    console.log(company);
-                    console.log(companies);
-                })
-                console.log(companies);
-            })
-            console.log(Object.values(companyIds));
-            const temp = Object.values(companyIds);
-            console.log(temp);
-            companyModel.find({_id:{$in:temp}},(err,companies)=>{
-                console.log(companies);
-            })
-            console.log(companies);
-            response.success = true;
-            response.message = "Companiees fetched successfully";
-            response.companies = companies;
-            return res.send(companies);
-        }
-    })
+
+        const companies = [];
+        companyIds.forEach(company=>{
+            const company = await companyModel.findOne({_id:company.company_id});
+            companies.push(company);
+            console.log(company);
+        })
+        
+        console.log(companies);
+        response.success = true;
+        response.message = "Registered companies fetched successfully";
+        response.companies = companies;
+        return res.send(companies);
+    }
+    catch(err) {
+        response.success = false;
+        response.message = "An error occured";
+        console.log(err);
+        return res.send(response);
+    }
 }
 
 module.exports = {
