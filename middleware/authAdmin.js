@@ -22,7 +22,7 @@ const authAdmin = (req,res,next)=>{
         }
         const email = req.user.email;
         const password = req.user.password;
-        console.log(email,password);
+        // console.log(email,password);
         adminModel.findOne({email},(err,user)=>{
             // console.log(user);
             if(err || !user ){

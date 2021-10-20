@@ -30,6 +30,16 @@ const registerForCompany = async(req,res,next)=>{
                 response.message = "Your credits are less than 4. So you are not eligible to apply";
                 return res.send(response);
             }
+            else if(student.status!="verified"){
+                response.success = false;
+                response.message = "Your profile is not verified";
+                return res.send(response);
+            }
+            else if(student.status!="placed"){
+                response.success = false;
+                response.message = "You are already placed. So cann't apply for any opening";
+                return res.send(response);
+            }
             else{
                 const registration = data;
                 registration.reg_no = reg_no;
