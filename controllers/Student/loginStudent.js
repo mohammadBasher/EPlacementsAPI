@@ -13,7 +13,7 @@ const loginStudent = (req,res,next)=>{
         response.message = "Registration no. and password are required";
         return res.send(response);
     }
-    studentModel.findOne({reg_no},(err,user)=>{
+    studentModel.findOne({reg_no},{photo:0,resume:0},(err,user)=>{
         // console.log(reg_no);
         // console.log(user);
         if(err || !user){
