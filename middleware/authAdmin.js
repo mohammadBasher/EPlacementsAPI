@@ -2,7 +2,6 @@
 
 const adminModel = require("../models/Admin");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 
 const authAdmin = (req,res,next)=>{
     const token = req.header('Authorization');
@@ -31,8 +30,8 @@ const authAdmin = (req,res,next)=>{
                 response.message = "Token is invalid";
                 return res.send(response);
             }
-            console.log(password==user.password);
-            console.log(user.password);
+            // console.log(password==user.password);
+            // console.log(user.password);
             if(password!=user.password){
                 response.success = false;
                 response.message = "Token is invalid";

@@ -47,9 +47,6 @@ const updateStudent = (req,res,next)=>{
             student.status = "completed";
             // initialise a updateStudent to store updated details
             const updateStudent = student;
-            // Update details in the database
-            // console.log("---------------------------------");
-            // console.log(updateStudent);
             studentModel.findByIdAndUpdate(student._id,updateStudent,(err,student)=>{
                 if(err){
                     console.log(err);

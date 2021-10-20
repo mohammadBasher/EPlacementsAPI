@@ -25,6 +25,11 @@ const registerForCompany = async(req,res,next)=>{
                 response.message = "Invalid password, login again";
                 return res.send(response);
             }
+            else if(student.credits<4){
+                response.success = false;
+                response.message = "Your credits are less than 4. So you are not eligible to apply";
+                return res.send(response);
+            }
             else{
                 const registration = data;
                 registration.reg_no = reg_no;

@@ -36,6 +36,7 @@ const {authStudent} = require("./middleware/authStudent");
 const registerAdmin = require("./routes/Admin/registerAdmin");
 const loginAdmin = require("./routes/Admin/loginAdmin");
 const addCompany = require("./routes/Admin/addCompany");
+const reduceCredit = require("./routes/Admin/reduceCredit");
 
 
 // using admin routes
@@ -43,6 +44,7 @@ app.use('/admin',registerAdmin); // to register an admin
 app.use('/admin',loginAdmin); // to login admin
 app.use('/admin',authAdmin); // middleware to authenticate admin
 app.use('/admin',addCompany); // to add a visiting company
+app.use('/admin',reduceCredit); // route to reduce credit of a student by reg_no and number of credits to reduce
 
 
 // importing student routes
