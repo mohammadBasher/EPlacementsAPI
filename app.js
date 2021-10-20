@@ -39,6 +39,7 @@ const addCompany = require("./routes/Admin/addCompany");
 const reduceCredit = require("./routes/Admin/reduceCredit");
 const {verifyProfile,markVerified} = require("./routes/Admin/verifyProfile");
 const studentPlaced = require("./routes/Admin/studentPlaced");
+const addNotice = require("./routes/Admin/addNotice");
 
 
 // using admin routes
@@ -50,6 +51,7 @@ app.use('/admin',reduceCredit); // route to reduce credit of a student by reg_no
 app.use('/admin',verifyProfile); // to get completed profiles
 app.use('/admin',markVerified); //to mark a profile verified by reg_no
 app.use('/admin',studentPlaced); // to mark a student placed so he cann't apply to any other company
+app.use('/admin',addNotice); // to publish a notice
 
 // importing student routes
 const registerStudent = require("./routes/Students/registerStudent");
@@ -81,9 +83,10 @@ app.use(currentOpening); // getting current openings
 
 
 // default route to get the details of logged in user
-const {getUser} = require('./getUser')
+const {getUser} = require('./controllers/getUser')
+const {getNotice} = require('./controllers/getNotice')
 app.get('/',getUser);
-
+app.get('/getNotice',getNotice);
 
 //defining port to run the server
 const PORT = process.env.PORT || 3000;

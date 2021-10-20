@@ -1,5 +1,5 @@
-const adminModel = require('./models/Admin');
-const studentModel = require('./models/Student');
+const adminModel = require('../models/Admin');
+const studentModel = require('../models/Student');
 const jwt = require("jsonwebtoken");
 
 const getUser = (req,res,next)=>{
