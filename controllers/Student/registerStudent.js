@@ -46,6 +46,7 @@ const registerStudent = (req,res,next)=>{
                     return res.send(response);
                 }
                 else{
+                    // using jwt for
                     //creating token
                     const token = jwt.sign({ password , reg_no},
                         process.env.TOKEN_KEY,
@@ -53,7 +54,7 @@ const registerStudent = (req,res,next)=>{
                         expiresIn: "10000h",
                         }
                     );
-
+                    // return user and created token with the response
                     response.success = true;
                     response.message = "Student registered successfully";
                     response.user = user;

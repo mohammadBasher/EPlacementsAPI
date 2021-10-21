@@ -21,14 +21,8 @@ const updateResume = (req,res,next)=>{
             response.message = "Invalid Password";
             return res.send(response);
         }
-        // else if(student.status== "verified"){
-        //     // If profile is verified return (Because user cann't update details if his profile is verified except resume and photo)
-        //     response.success = false;
-        //     response.message = "Your profile is verified and locked";
-        //     return res.send(response);
-        // }
         else{
-            // Using data indexes as keys to update only incoming fields in student
+            // updating resume in the found student
             student.resume = {
                 data: fs.readFileSync(path.join(__dirname +"/../../../"+ './public/' + req.file.filename)),
                 contentType: 'pdf'
@@ -41,6 +35,7 @@ const updateResume = (req,res,next)=>{
                     console.log(err);
                 }
             });
+            // return success=true with the response
             response.success = true;
             response.message = "Resume updated";
             return res.send(response);

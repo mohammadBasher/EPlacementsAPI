@@ -47,11 +47,13 @@ const updateStudent = (req,res,next)=>{
             student.status = "completed";
             // initialise a updateStudent to store updated details
             const updateStudent = student;
+            // updating student in the database
             studentModel.findByIdAndUpdate(student._id,updateStudent,(err,student)=>{
                 if(err){
                     console.log(err);
                 }
             });
+            // return success = true with the response
             response.success = true;
             response.message = "Profile updated";
             return res.send(response);

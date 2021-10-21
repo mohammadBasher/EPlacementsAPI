@@ -21,14 +21,8 @@ const updatePhoto = (req,res,next)=>{
             response.message = "Invalid Password";
             return res.send(response);
         }
-        // else if(student.status== "verified"){
-        //     // If profile is verified return (Because user cann't update details if his profile is verified except resume and photo)
-        //     response.success = false;
-        //     response.message = "Your profile is verified and locked";
-        //     return res.send(response);
-        // }
         else{
-            // Using data indexes as keys to update only incoming fields in student
+            // Changing photo in the found student
             student.photo = {
                 data: fs.readFileSync(path.join(__dirname +"/../../../"+ './public/' + req.file.filename)),
                 contentType: 'image/png'
@@ -36,13 +30,12 @@ const updatePhoto = (req,res,next)=>{
             // initialise a updateStudent to store updated details
             const updateStudent = student;
             // Update details in the database
-            // console.log("---------------------------------");
-            // console.log(updateStudent);
             studentModel.findByIdAndUpdate(student._id,updateStudent,(err,student)=>{
                 if(err){
                     console.log(err);
                 }
             });
+            // return success=true with the response
             response.success = true;
             response.message = "Photo updated";
             return res.send(response);

@@ -21,7 +21,8 @@ const changePassword = (req,res,next)=>{
             return res.send(response);
         }
         else{
-            // Using data indexes as keys to update only incoming fields in student
+            // hashed the new password
+            // than creating token for that
             student.password = bcrypt.hashSync(req.body.password,5);
             const newPassword = student.password;
             const token = jwt.sign({ newPassword , reg_no},
@@ -30,14 +31,14 @@ const changePassword = (req,res,next)=>{
                 expiresIn: "100000h",
                 }
             );
-
-            // Update details in the database
+            // Updating details in the database
             const updateStudent = student;
             studentModel.findByIdAndUpdate(student._id,updateStudent,(err,student)=>{
                 if(err){
                     console.log(err);
                 }
             });
+            // returning updated student and token with the response
             response.success = true;
             response.message = "Password changed successfully";
             response.user = student;

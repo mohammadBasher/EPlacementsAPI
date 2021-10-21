@@ -3,7 +3,9 @@
 // To interpret .env file content
 require("dotenv").config();
 const express = require("express");
+// to parse incoming requests
 const bodyParser = require("body-parser");
+// MongoDB library
 const mongoose = require("mongoose");
 
 

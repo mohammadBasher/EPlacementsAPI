@@ -12,13 +12,16 @@ const getStudents = (req,res,next)=>{
     else{
         query = {status:status};        
     }
+    // searching students collection with the formed query
     studentModel.find(query,{name:1,reg_no:1,branch:1,course:1,status:1},(err,users)=>{
+        // if some error occurred return from here
         if(err){
             response.status = false;
             response.message = "Some error occurred while fetching students";
             console.log(err);
             return res.send(response);
         }
+        // Return fetched students with the response
         response.status = true;
         response.message = "Students fetched successfully";
         response.students = users;
@@ -33,13 +36,16 @@ const setStatus = (req,res,next)=>{
     const reg_no = req.body.reg_no;
     const newStatus = req.body.set_status;
     const remark = req.body.remark;
+    // updating the status in the collection
     studentModel.findOneAndUpdate({reg_no},{status:newStatus,remarks:remark},(err,user)=>{
+        // if some error occurred return from here
         if(err){
             response.success = false;
             response.message = "Some error occurred while updating";
             console.log(err);
             return res.send(response);
         }
+        // else return the updated students with the response
         response.success = true;
         response.message = "Updated Successfully!!";
         return res.send(response);
