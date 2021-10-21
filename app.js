@@ -37,8 +37,7 @@ const registerAdmin = require("./routes/Admin/registerAdmin");
 const loginAdmin = require("./routes/Admin/loginAdmin");
 const addCompany = require("./routes/Admin/addCompany");
 const reduceCredit = require("./routes/Admin/reduceCredit");
-const {verifyProfile,markVerified} = require("./routes/Admin/verifyProfile");
-const studentPlaced = require("./routes/Admin/studentPlaced");
+const {getStudents,setStatus} = require("./routes/Admin/getStudents");
 const addNotice = require("./routes/Admin/addNotice");
 
 
@@ -48,9 +47,9 @@ app.use('/admin',loginAdmin); // to login admin
 app.use('/admin',authAdmin); // middleware to authenticate admin
 app.use('/admin',addCompany); // to add a visiting company
 app.use('/admin',reduceCredit); // route to reduce credit of a student by reg_no and number of credits to reduce
-app.use('/admin',verifyProfile); // to get completed profiles
-app.use('/admin',markVerified); //to mark a profile verified by reg_no
-app.use('/admin',studentPlaced); // to mark a student placed so he cann't apply to any other company
+app.use('/admin',getStudents); // to get all status with status in get_status field 
+// if get_status field is not present in the above route it will return all students in the collection
+app.use('/admin',setStatus); //to set status of a student by giving reg_no and a set_status field in which the status will be change
 app.use('/admin',addNotice); // to publish a notice
 
 // importing student routes

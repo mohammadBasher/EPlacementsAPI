@@ -8,7 +8,7 @@ const loginAdmin = (req,res,next)=>{
     var password = req.body.password;
     const response = {};
     console.log(req.body,email,password);
-    adminModel.findOne({email},(err,user)=>{
+    adminModel.findOne({email},{photo:0},(err,user)=>{
         if(err || !user){
             response.success = false;
             response.message = "Admin not registered";

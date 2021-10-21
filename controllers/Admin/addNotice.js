@@ -1,4 +1,4 @@
-const noticeModel = require("../../models/notice");
+const noticeModel = require("../../models/Notice");
 
 const addNotice = (req,res,next)=>{
     const content = req.body;

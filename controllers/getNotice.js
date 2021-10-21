@@ -1,4 +1,4 @@
-const noticeModel = require("../models/notice");
+const noticeModel = require("../models/Notice");
 
 const getNotice = (req,res,next)=>{
     const response = {};
