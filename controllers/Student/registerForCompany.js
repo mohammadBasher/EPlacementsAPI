@@ -49,6 +49,14 @@ const registerForCompany = async(req,res,next)=>{
                 if(!ifRegister){
                     // if student not register till now
                     const deadline = await companyModel.findOne({_id:data.company_id},{reg_deadline:1,_id:0});
+                    const branch = await companyModel.findOne({_id:data.company_id},{allowed_branches:1,_id:0});
+                    // checking if user's branch is allowed in this company or not
+                    if(branch.indexOf(student.branch)==-1){
+                        console.log("your branch is not allowed");
+                        response.success = false;
+                        response.message = "Your branch is not allowed in this company";
+                        return res.send(response);
+                    }
                     const cur_time = new Date().getTime();
                     // If registration deadline of the company expired 
                     // return from here...
