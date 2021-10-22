@@ -34,6 +34,7 @@ const addCompany = require("./routes/Admin/addCompany");
 const reduceCredit = require("./routes/Admin/reduceCredit");
 const {getStudents,setStatus} = require("./routes/Admin/getStudents");
 const addNotice = require("./routes/Admin/addNotice");
+const addContact = require("./routes/Admin/addContact");
 
 // using admin routes
 app.use('/admin',registerAdmin);        // to register an admin
@@ -44,6 +45,7 @@ app.use('/admin',reduceCredit);         // route to reduce credit of a student b
 app.use('/admin',getStudents);          // to get all status with status in get_status field
 app.use('/admin',setStatus);            // to set status of a student by giving reg_no and a set_status field in which the status will be change
 app.use('/admin',addNotice);            // to publish a notice
+app.use('/admin',addContact);           // to add a new contact
 
 
 // importing student routes
