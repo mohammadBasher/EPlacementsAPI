@@ -1,9 +1,10 @@
-const noticeModel = require("../models/Notice");
+const companyModel = require("../models/Company");
 
-const getNotice = (req,res,next)=>{
+const getCompany = (req,res,next)=>{
     const response = {};
+    const id = req.body.id;
     // fetching all the notices 
-    noticeModel.find({},(err,notice)=>{
+    companyModel.find({id},(err,company)=>{
         // if some error occurred return from here
         if(err){
             response.success = false;
@@ -13,12 +14,12 @@ const getNotice = (req,res,next)=>{
         }
         // return fetched notices with the response
         response.success = true;
-        response.message = "Notice fetched successfully";
-        response.notices = notice;
+        response.message = "Company fetched successfully";
+        response.company = company;
         return res.send(response);
-    }).sort({ time:'desc'}); // sorting results to display latest at the top
+    })
 }
 
 module.exports = {
-    getNotice
+    getCompany
 }
