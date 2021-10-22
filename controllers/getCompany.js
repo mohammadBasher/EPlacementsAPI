@@ -4,7 +4,7 @@ const getCompany = (req,res,next)=>{
     const response = {};
     const id = req.body.id;
     // fetching all the notices 
-    companyModel.find({id},(err,company)=>{
+    companyModel.findOne({_id:id},(err,company)=>{
         // if some error occurred return from here
         if(err){
             response.success = false;

@@ -51,12 +51,10 @@ const company = new mongoose.Schema({
     },
     company_link : {
         type : String,
-        required : true,
         default:"NA"
     },
     eligibility_criteria : {
         type : String,
-        required : true,
         default:"NA"
     },
     min_cpi : {
@@ -81,7 +79,6 @@ const company = new mongoose.Schema({
     },
     remarks : {
         type : String,
-        required : true,
         default: "NA"
     },
 });

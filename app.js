@@ -69,10 +69,10 @@ app.use('/student',getRegisteredCompanies); // to get companies for which studen
 
 
 //importing common routes
-const currentOpening = require("./routes/currentOpening"); // to get current openings
+const currentOpening = require("./routes/currentOpening");  // to get current openings
 
 //using common routes
-app.use(currentOpening);                    // getting current openings
+app.use(currentOpening);                                    // getting current openings
 
 
 // default route to get the details of logged in user
@@ -81,11 +81,11 @@ const {getNotice} = require('./controllers/getNotice');
 const {getCompany} = require('./controllers/getCompany');
 app.get('/',getUser);
 app.get('/getNotice',getNotice);
-app.get('/geCompany',getCompany);
+app.post('/getCompany',getCompany);
 
 //defining port to run the server
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,()=>{
-    console.log("server is running on "+PORT);
+app.listen(PORT,()=> {
+    console.log("Server is running on " + PORT);
 });
