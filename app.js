@@ -78,9 +78,11 @@ app.use(currentOpening);                                    // getting current o
 // default route to get the details of logged in user
 const {getUser} = require('./controllers/getUser');
 const {getNotice} = require('./controllers/getNotice');
+const {getContact} = require('./controllers/getContact');
 const {getCompany} = require('./controllers/getCompany');
 app.get('/',getUser);
 app.get('/getNotice',getNotice);
+app.get('/getContact',getContact);
 app.post('/getCompany',getCompany);
 
 //defining port to run the server
