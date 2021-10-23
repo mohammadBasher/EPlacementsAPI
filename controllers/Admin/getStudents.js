@@ -16,13 +16,13 @@ const getStudents = (req,res,next)=>{
     studentModel.find(query,{name:1,reg_no:1,branch:1,course:1,status:1},(err,users)=>{
         // if some error occurred return from here
         if(err){
-            response.status = false;
+            response.success = false;
             response.message = "Some error occurred while fetching students";
             console.log(err);
             return res.send(response);
         }
         // Return fetched students with the response
-        response.status = true;
+        response.success = true;
         response.message = "Students fetched successfully";
         response.students = users;
         return res.send(response);

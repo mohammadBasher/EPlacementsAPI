@@ -17,20 +17,14 @@ const changePassword = (req,res,next)=>{
         else if(password!=student.password){
             // If password doesn't match
             response.success = false;
-            response.message = "Invalid password, login again";
+            response.message = "Incorrect password";
             return res.send(response);
         }
         else{
-            // hashed the new password
-            // than creating token for that
+            // hash the new password and create
             student.password = bcrypt.hashSync(req.body.password,5);
             const newPassword = student.password;
-            const token = jwt.sign({ newPassword , reg_no},
-                process.env.TOKEN_KEY,
-                {
-                expiresIn: "100000h",
-                }
-            );
+            const token = jwt.sign({ newPassword , reg_no}, process.env.TOKEN_KEY, {expiresIn: "100000h"});
             // Updating details in the database
             const updateStudent = student;
             studentModel.findByIdAndUpdate(student._id,updateStudent,(err,student)=>{
