@@ -1,12 +1,12 @@
 const companyModel = require("../models/Company");
 
-const getCompany = (req,res,next)=>{
+const getCompany = (req, res, next) => {
     const response = {};
     const id = req.body.id;
     // fetching all the notices 
-    companyModel.findOne({_id:id},(err,company)=>{
+    companyModel.findOne({ _id: id }, (err, company) => {
         // if some error occurred return from here
-        if(err){
+        if (err) {
             response.success = false;
             response.message = "Some error occurred";
             console.log(err);

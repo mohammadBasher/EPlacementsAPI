@@ -1,6 +1,6 @@
 const express = require("express");
 
-const {currentOpening} = require("../controllers/currentOpening");
+const { currentOpening } = require("../controllers/currentOpening");
 
 const router = express.Router();
 

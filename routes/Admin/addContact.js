@@ -1,6 +1,6 @@
 const express = require("express");
 
-const {addContact} = require("../../controllers/Admin/addContact");
+const { addContact } = require("../../controllers/Admin/addContact");
 
 const router = express.Router();
 

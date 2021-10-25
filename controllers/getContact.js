@@ -1,11 +1,11 @@
 const contactModel = require("../models/Contact");
 
-const getContact = (req,res,next)=>{
+const getContact = (req, res, next) => {
     const response = {};
     // fetching all the notices 
-    contactModel.find({},(err,contact)=>{
+    contactModel.find({}, (err, contact) => {
         // if some error occurred return from here
-        if(err){
+        if (err) {
             response.success = false;
             response.message = "Some error occurred";
             console.log(err);

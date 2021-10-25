@@ -1,12 +1,12 @@
 const statsModel = require("../models/stats");
 
-const getStats = (req,res,next) => {
+const getStats = (req, res, next) => {
     // fetching year in the request's body
     const year = req.body.year;
     const response = {};
     // search for that year in the database
-    statsModel.find({year},(err,stats)=>{
-        if(err){
+    statsModel.find({ year }, (err, stats) => {
+        if (err) {
             // if some error occurred return from here
             response.success = false;
             response.message = "Some error occurred";

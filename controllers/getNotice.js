@@ -1,11 +1,11 @@
 const noticeModel = require("../models/Notice");
 
-const getNotice = (req,res,next)=>{
+const getNotice = (req, res, next) => {
     const response = {};
     // fetching all the notices 
-    noticeModel.find({},(err,notice)=>{
+    noticeModel.find({}, (err, notice) => {
         // if some error occurred return from here
-        if(err){
+        if (err) {
             response.success = false;
             response.message = "Some error occurred";
             console.log(err);
@@ -16,7 +16,7 @@ const getNotice = (req,res,next)=>{
         response.message = "Notice fetched successfully";
         response.notices = notice;
         return res.send(response);
-    }).sort({ time:'desc'}); // sorting results to display latest at the top
+    }).sort({ time: 'desc' }); // sorting results to display latest at the top
 }
 
 module.exports = {

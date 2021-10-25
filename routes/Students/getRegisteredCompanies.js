@@ -1,6 +1,6 @@
 const express = require("express");
 
-const {getRegisteredCompanies} = require("../../controllers/Student/getRegisteredCompanies");
+const { getRegisteredCompanies } = require("../../controllers/Student/getRegisteredCompanies");
 
 const router = express.Router();
 

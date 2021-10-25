@@ -5,21 +5,21 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt');
 
 
-const registerAdmin = (req,res,next)=>{
+const registerAdmin = (req, res, next) => {
     // fetching email from request's body
     const email = req.body.email;
     const response = {};
     // if any of the required field is empty 
     // return from here
-    if(!req.body.name || !req.body.email || !req.body.password || !req.file.filename){
+    if (!req.body.name || !req.body.email || !req.body.password || !req.file.filename) {
         response.success = false;
         response.message = "All fields are required";
         res.send(response);
     }
     // checking wheather any other admin registered with the given email
-    adminModel.findOne({email},(err,user)=>{
+    adminModel.findOne({ email }, (err, user) => {
         // if some error occurred return from here
-        if(err){
+        if (err) {
             response.success = false;
             response.message = "An error occured, try again";
             console.log(err);
@@ -27,20 +27,20 @@ const registerAdmin = (req,res,next)=>{
         }
         // if any user found with that email
         // return from here 
-        if(user){
+        if (user) {
             response.success = false;
             response.message = "Admin already exists";
             return res.send(response);
         }
-        else{
+        else {
             // create a new admin with the given details
             const admin = {
                 name: req.body.name,
                 email: req.body.email,
-                password: bcrypt.hashSync(req.body.password,5),
+                password: bcrypt.hashSync(req.body.password, 5),
                 //reading uploaded photo
                 photo: {
-                    data: fs.readFileSync(path.join(__dirname +"/../../"+ './public/' + req.file.filename)),
+                    data: fs.readFileSync(path.join(__dirname + "/../../" + './public/' + req.file.filename)),
                     contentType: 'image/png'
                 }
             }
@@ -48,22 +48,22 @@ const registerAdmin = (req,res,next)=>{
             const newAdmin = new adminModel(admin);
             const password = admin.password;
             // saving newly created admin
-            newAdmin.save((err,user)=>{
+            newAdmin.save((err, user) => {
                 // if some error occurred while saving return
-                if(err){
+                if (err) {
                     response.success = false;
                     response.message = "An error occured, try again";
                     console.log(err);
                     return res.send(response);
                 }
-                else{
+                else {
                     // Now admin registered successfully
                     // using jwt for
                     //creating token
-                    const token = jwt.sign({ password , email},
+                    const token = jwt.sign({ password, email },
                         process.env.TOKEN_KEY,
                         {
-                        expiresIn: "100000h",
+                            expiresIn: "100000h",
                         }
                     );
                     // returing registered admin with the created token

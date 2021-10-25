@@ -1,6 +1,6 @@
 const CompanyModel = require("../../models/Company");
 
-const addCompany = (req,res,next) => {
+const addCompany = (req, res, next) => {
     // fetching company's data from the request
     const data = req.body;
     console.log(data);
@@ -9,9 +9,9 @@ const addCompany = (req,res,next) => {
     const job_profile = data.job_profile;
     const job_location = data.job_location;
     // checking wheather a company already registered with that name, profile and location
-    CompanyModel.findOne({name, job_profile, job_location},(err,company)=>{
+    CompanyModel.findOne({ name, job_profile, job_location }, (err, company) => {
         // if some error occurred return from here
-        if(err){
+        if (err) {
             response.success = false;
             response.msg = "An error occured, try again";
             console.log(err);
@@ -19,17 +19,17 @@ const addCompany = (req,res,next) => {
         }
         // if some company already exists
         // tell the admin and return
-        else if(company){
+        else if (company) {
             response.success = false;
             response.msg = "Company already exists with given name and job profile";
             return res.send(response);
         }
-        else{
+        else {
             // Now create a newCompany with given data and save it
             const newCompany = new CompanyModel(data);
-            newCompany.save((err,company)=>{
+            newCompany.save((err, company) => {
                 // if some error occurred return from here 
-                if(err){
+                if (err) {
                     response.success = false;
                     response.message = "An error occured, try again";
                     console.log(err);
