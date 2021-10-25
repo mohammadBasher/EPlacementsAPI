@@ -1,87 +1,74 @@
 const mongoose = require("mongoose");
 
 const company = new mongoose.Schema({
-    name : {
-        type : String,
-        required : true
+    name: {
+        type: String,
+        required: true
     },
-    job_profile : {
-        type : String,
-        required : true,
-        default:"NA"
+    job_profile: {
+        type: String,
+        required: true
     },
-    job_location : {
-        type : String,
-        required : true,
-        default:"NA"
+    job_location: {
+        type: String,
+        required: true
     },
-    job_desc : {
-        type : String,
-        required : true,
-        default:"NA"
+    job_desc: {
+        type: String,
+        required: true
     },
-    provision_ppo : {
-        type : String,
-        required : true,
-        default:"NA"
+    provision_ppo: {
+        type: String,
+        required: true
     },
-    process : {
-        type : String,
-        required : true,
-        default:"NA"
+    process: {
+        type: String,
+        required: true
     },
-    ctc : {
-        type : Number,
+    ctc: {
+        type: Number,
         default: 0
     },
-    allowed_branches : {
-        type : Array,
-        required : true,
-        default:"NA"
+    allowed_branches: {
+        type: Array,
+        required: true
     },
-    reg_deadline : {
-        type : Number,
-        required : true,
-        default : new Date().getTime()
+    reg_deadline: {
+        type: Number,
+        required: true
     },
-    total_students : {
-        type : Number,
-        required : true,
+    total_students: {
+        type: Number,
         default: 0
     },
-    company_link : {
-        type : String,
-        default:"NA"
+    company_link: {
+        type: String,
+        default: "NA"
     },
-    eligibility_criteria : {
-        type : String,
-        default:"NA"
+    eligibility_criteria: {
+        type: String,
+        default: "NA"
     },
-    min_cpi : {
-        type : Number,
-        required : true,
-        default: 6
+    min_cpi: {
+        type: Number,
+        required: true
     },
-    min_10 : {
-        type : Number,
-        required : true,
-        default: 75
+    min_10: {
+        type: Number,
+        required: true
     },
-    min_12 : {
-        type : Number,
-        required : true,
-        default: 75
+    min_12: {
+        type: Number,
+        required: true
     },
-    gap_allowed : {
-        type : Number,
-        required : true,
-        default: 0
+    gap_allowed: {
+        type: Number,
+        required: true
     },
-    remarks : {
-        type : String,
+    remarks: {
+        type: String,
         default: "NA"
     },
 });
 
 module.exports = new mongoose.model('company', company);
-

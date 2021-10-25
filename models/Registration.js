@@ -1,32 +1,30 @@
 const mongoose = require("mongoose");
 
 const registration = new mongoose.Schema({
-    company_id : {
-        type : mongoose.SchemaTypes.ObjectId,
-        required : true
+    company_id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        required: true
     },
-    reg_no : {
-        type : Number,
-        required : true
+    reg_no: {
+        type: Number,
+        required: true
     },
-    year : {
-        type : Number,
-        required : true,
-        default : 2000
+    year: {
+        type: Number,
+        required: true
     },
-    timestamp : {
-        type : Number,
-        default : new Date().getTime()
+    timestamp: {
+        type: Number,
+        default: new Date().getTime()
     },
-    status : {
-        type : String,
-        default : "registered"
+    status: {
+        type: String,
+        default: "registered"
     },
-    remarks : {
-        type : String,
-        default : true
+    remarks: {
+        type: String,
+        default: ""
     }
 });
 
 module.exports = new mongoose.model('registration', registration);
-

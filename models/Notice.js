@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
 const notice = new mongoose.Schema({
-    title:{
+    title: {
         type: String,
         required: true
     },
-    content:{
-        type : String,
-        required : true
+    content: {
+        type: String,
+        required: true
     },
-    timestamp:{
+    timestamp: {
         type: Number,
         default: new Date().getTime()
     }
