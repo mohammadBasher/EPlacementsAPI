@@ -32,6 +32,13 @@ const registerForCompany = async (req, res, next) => {
                 response.message = "Your credits are less than 4. So you are not eligible to apply";
                 return res.send(response);
             }
+            else if (student.backlogs > 0) {
+                // If student has any active backlog
+                // then he will not be able to register for the company
+                response.success = false;
+                response.message = "You have an active backlog. So you are not eligible to apply";
+                return res.send(response);
+            }
             else if (student.status != "verified") {
                 // If student's status is not verified 
                 // wheather registered,completed,unverified or placed
@@ -45,25 +52,46 @@ const registerForCompany = async (req, res, next) => {
                 // checking wheather student already registered for this company
                 const registration = data;
                 registration.reg_no = reg_no;
+                registration.year = new Date().getFullYear();
                 const ifRegister = await registerationModel.findOne({ company_id: data.company_id, reg_no: reg_no });
                 if (!ifRegister) {
                     // if student not register till now
-                    const deadline = await companyModel.findOne({ _id: data.company_id }, { reg_deadline: 1, _id: 0 });
-                    const branch = await companyModel.findOne({ _id: data.company_id }, { allowed_branches: 1, _id: 0 });
+                    const company = await companyModel.findOne({ _id: data.company_id });
+                    const deadline = company.reg_deadline;
+                    const branch = company.allowed_branches;
                     // checking if user's branch is allowed in this company or not
-                    if (branch.allowed_branches.indexOf(student.branch) == -1) {
+                    if (branch.indexOf(student.branch) == -1) {
                         console.log("Branch not allowed");
                         response.success = false;
                         response.message = "Your branch is not allowed in this company";
                         return res.send(response);
                     }
-                    const cur_time = new Date().getTime();
-                    // If registration deadline of the company expired 
-                    // return from here...
-                    if (deadline.reg_deadline < cur_time) {
-                        console.log("deadline expired");
+                    // checking if user's cpi is fulfilling minimum condition or not
+                    else if (company.min_cpi <= student.cpi) {
+                        console.log("Cpi too less");
                         response.success = false;
-                        response.message = "Registration deadline expired!!";
+                        response.message = "Your cpi is less than minimum cpi criteria";
+                        return res.send(response);
+                    }
+                    // checking if user's 10 %` is fulfilling minimum condition or not
+                    else if (company.min_10 <= student.percent_10) {
+                        console.log("10th % too less");
+                        response.success = false;
+                        response.message = "Your 10th % is less than minimum % criteria";
+                        return res.send(response);
+                    }
+                    // checking if user's 12 %` is fulfilling minimum condition or not
+                    else if (company.min_12 <= student.percent_12) {
+                        console.log("12th % too less");
+                        response.success = false;
+                        response.message = "Your 12th % is less than minimum % criteria";
+                        return res.send(response);
+                    }
+                    // If registration deadline of the company is expired or not
+                    else if (deadline < new Date().getTime()) {
+                        console.log("Deadline expired");
+                        response.success = false;
+                        response.message = "Registration deadline expired";
                         return res.send(response);
                     }
                     else {
@@ -88,8 +116,7 @@ const registerForCompany = async (req, res, next) => {
                     }
                 }
                 else {
-                    // As student already registered for this company
-                    // return from here
+                    // As student already registered for this company return from here
                     response.success = false;
                     response.message = "You have already registered for this company";
                     return res.send(response);
