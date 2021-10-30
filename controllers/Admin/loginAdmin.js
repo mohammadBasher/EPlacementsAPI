@@ -14,15 +14,14 @@ const loginAdmin = (req, res, next) => {
         response.message = "Email no. and password are required";
         return res.send(response);
     }
-    // console.log(req.body,email,password);
     // Checking wheather any account registered with that email
     adminModel.findOne({ email }, { photo: 0 }, (err, user) => {
         // if some error occurred or user not found
         // return response with success false
         if (err || !user) {
+            console.log("Please register first");
             response.success = false;
             response.message = "Admin not registered";
-            console.log("Please register first");
             return res.send(response);
         }
         // Now compare password using bcrypt as saved password is hashed
@@ -33,17 +32,9 @@ const loginAdmin = (req, res, next) => {
             return res.send(response);
         }
         else {
-            // Now as account is found and password also matched
-            // using jwt for
-            //creating token
+            // create token using jwt and return
             password = user.password;
-            const token = jwt.sign({ password, email },
-                process.env.TOKEN_KEY,
-                {
-                    expiresIn: "10000h",
-                }
-            );
-            // returning found user and created token with the response
+            const token = jwt.sign({ password, email }, process.env.TOKEN_KEY, { expiresIn: "10000h" });
             response.success = true;
             response.message = "Logged in successfully";
             response.user = user;

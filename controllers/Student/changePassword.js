@@ -10,12 +10,14 @@ const changePassword = (req, res, next) => {
     studentModel.findOne({ reg_no }, (err, student) => {
         if (err || !student) {
             // If student is not found or some error occurred 
+            console.log("Student not found");
             response.success = false;
             response.message = "An error occured, try again";
             return res.send(response);
         }
         else if (password != student.password) {
             // If password doesn't match
+            console.log("Invalid password");
             response.success = false;
             response.message = "Incorrect password";
             return res.send(response);

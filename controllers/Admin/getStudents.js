@@ -16,9 +16,9 @@ const getStudents = (req, res, next) => {
     studentModel.find(query, { name: 1, reg_no: 1, branch: 1, course: 1, status: 1 }, (err, users) => {
         // if some error occurred return from here
         if (err) {
+            console.log(err);
             response.success = false;
             response.message = "Some error occurred while fetching students";
-            console.log(err);
             return res.send(response);
         }
         // Return fetched students with the response
@@ -40,9 +40,9 @@ const setStatus = (req, res, next) => {
     studentModel.findOneAndUpdate({ reg_no }, { status: newStatus, remarks: remark }, (err, user) => {
         // if some error occurred return from here
         if (err) {
+            console.log(err);
             response.success = false;
             response.message = "Some error occurred while updating";
-            console.log(err);
             return res.send(response);
         }
         // else return the updated students with the response

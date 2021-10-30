@@ -4,7 +4,6 @@ const path = require("path")
 const jwt = require("jsonwebtoken")
 const bcrypt = require('bcrypt');
 
-
 const registerAdmin = (req, res, next) => {
     // fetching email from request's body
     const email = req.body.email;
@@ -20,13 +19,12 @@ const registerAdmin = (req, res, next) => {
     adminModel.findOne({ email }, (err, user) => {
         // if some error occurred return from here
         if (err) {
+            console.log(err);
             response.success = false;
             response.message = "An error occured, try again";
-            console.log(err);
             return res.send(response);
         }
-        // if any user found with that email
-        // return from here 
+        // return if any user is found with that email
         if (user) {
             response.success = false;
             response.message = "Admin already exists";
@@ -44,29 +42,20 @@ const registerAdmin = (req, res, next) => {
                     contentType: 'image/png'
                 }
             }
-            console.log(admin);
             const newAdmin = new adminModel(admin);
             const password = admin.password;
             // saving newly created admin
             newAdmin.save((err, user) => {
                 // if some error occurred while saving return
                 if (err) {
+                    console.log(err);
                     response.success = false;
                     response.message = "An error occured, try again";
-                    console.log(err);
                     return res.send(response);
                 }
                 else {
-                    // Now admin registered successfully
-                    // using jwt for
-                    //creating token
-                    const token = jwt.sign({ password, email },
-                        process.env.TOKEN_KEY,
-                        {
-                            expiresIn: "100000h",
-                        }
-                    );
-                    // returing registered admin with the created token
+                    // Now admin is registered successfully, create token using jwt and return
+                    const token = jwt.sign({ password, email }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
                     response.success = true;
                     response.message = "Admin registered successfully";
                     response.user = user;

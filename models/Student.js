@@ -79,13 +79,11 @@ const student = new mongoose.Schema({
         default: ""
     },
     photo: {
-        data: Buffer,
-        contentType: String,
+        type: String,
         default: ""
     },
     resume: {
-        data: Buffer,
-        contentType: String,
+        type: String,
         default: ""
     },
     credits: {

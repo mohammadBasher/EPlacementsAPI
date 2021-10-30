@@ -21,6 +21,10 @@ const contact = new mongoose.Schema({
         type: String,
         required: true
     },
+    photo: {
+        type: String,
+        default: ""
+    }
 });
 
 module.exports = new mongoose.model('contact', contact);

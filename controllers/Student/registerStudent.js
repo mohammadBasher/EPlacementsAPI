@@ -8,6 +8,7 @@ const registerStudent = (req, res, next) => {
     // Checking if any of the field is empty
     const response = {};
     if (!req.body.reg_no || !req.body.password) {
+        console.log("Empty fields")
         response.success = false;
         response.message = "Registration no. and password are required";
         return res.send(response);
@@ -17,13 +18,14 @@ const registerStudent = (req, res, next) => {
     // Checking whether Student with reg_no already registered
     studentModel.findOne({ reg_no }, (err, user) => {
         if (err) {
+            console.log(err);
             response.success = false;
             response.message = "An error occurred, try again";
-            console.log(err);
             res.send(response);
         }
         if (user) {
             // if student exist send response
+            console.log("Student already exists");
             response.success = false;
             response.message = "Student already exists";
             return res.send(response);
@@ -40,21 +42,14 @@ const registerStudent = (req, res, next) => {
             const password = student.password;
             newStudent.save((err, user) => {
                 if (err) {
+                    console.log(err);
                     response.success = false;
                     response.message = "An error occured, try again";
-                    console.log(err);
                     return res.send(response);
                 }
                 else {
-                    // using jwt for
-                    //creating token
-                    const token = jwt.sign({ password, reg_no },
-                        process.env.TOKEN_KEY,
-                        {
-                            expiresIn: "10000h",
-                        }
-                    );
-                    // return user and created token with the response
+                    // create token using jwt and return
+                    const token = jwt.sign({ password, reg_no }, process.env.TOKEN_KEY, { expiresIn: "10000h" });
                     response.success = true;
                     response.message = "Student registered successfully";
                     response.user = user;

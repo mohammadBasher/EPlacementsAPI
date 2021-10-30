@@ -7,7 +7,7 @@ const addContact = (req, res, next) => {
     // creating and saving that contact in the Contact collection
     const newContact = new contactModel(req.body);
     newContact.save((err, contact) => {
-        // if some error occurred return from here
+        // return if some error occurrs
         if (err) {
             console.log(err);
             response.success = false;

@@ -8,9 +8,9 @@ const currentOpening = (req, res, next) => {
     companyModel.find({ reg_deadline: { $gt: currentTime } }, (err, company) => {
         if (err) {
             // if some error occurred return from here
+            console.log(err);
             response.success = false;
             response.message = "Some error occurred ";
-            console.log(err);
             return res.send(response);
         }
         // return all fetched companies with the response

@@ -14,6 +14,7 @@ const registerForCompany = async (req, res, next) => {
         const student = await studentModel.findOne({ reg_no });
         if (!student) {
             // If student is not found or some error occurred return 
+            console.log("Student not found");
             response.success = false;
             response.message = "An error occurred, try again";
             return res.send(response);
@@ -21,6 +22,7 @@ const registerForCompany = async (req, res, next) => {
         else {
             if (password != student.password) {
                 // If password doesn't match return with Invalid Password
+                console.log("Invalid password");
                 response.success = false;
                 response.message = "Invalid password, login again";
                 return res.send(response);
@@ -28,6 +30,7 @@ const registerForCompany = async (req, res, next) => {
             else if (student.credits < 4) {
                 // If student's credits are less than 4 
                 // then he will not be able to register for the company
+                console.log("Credits less than 4");
                 response.success = false;
                 response.message = "Your credits are less than 4. So you are not eligible to apply";
                 return res.send(response);
@@ -35,14 +38,16 @@ const registerForCompany = async (req, res, next) => {
             else if (student.backlogs > 0) {
                 // If student has any active backlog
                 // then he will not be able to register for the company
+                console.log("Backlogs not allowed");
                 response.success = false;
                 response.message = "You have an active backlog. So you are not eligible to apply";
                 return res.send(response);
             }
             else if (student.status != "verified") {
                 // If student's status is not verified 
-                // wheather registered,completed,unverified or placed
+                // whether registered,completed,unverified or placed
                 // then also he will not be able to register
+                console.log("Profile not verified");
                 response.success = false;
                 response.message = "Your profile is not verified";
                 return res.send(response);
@@ -125,11 +130,10 @@ const registerForCompany = async (req, res, next) => {
         }
 
     } catch (err) {
-        // if some error occurred 
-        // catch it and print on console
+        // return if some error occurs
+        console.log(err);
         response.success = false;
         response.message = "An error occured";
-        console.log(err);
         return res.send(response);
     }
 }

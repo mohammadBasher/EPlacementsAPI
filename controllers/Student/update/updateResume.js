@@ -10,13 +10,15 @@ const updateResume = (req, res, next) => {
     const password = req.user.password;
     studentModel.findOne({ reg_no }, (err, student) => {
         if (err || !student) {
-            // If student is not found or some error occurred return 
+            // If student is not found or some error occurred return
+            console.log("Reg. No. not found");
             response.success = false;
             response.message = "Some error occurred while finding reg_no";
             return res.send(response);
         }
         else if (password != student.password) {
             // If password doesn't match, return with Invalid Password
+            console.log("Invalid password");
             response.success = false;
             response.message = "Invalid Password";
             return res.send(response);

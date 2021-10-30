@@ -12,9 +12,9 @@ const getRegisteredCompanies = async (req, res, next) => {
         const companyIds = await registerationModel.find({ reg_no }, { company_id: 1, _id: 0, timestamp: 1 });
 
         if (!companyIds) {
+            console.log(err);
             response.success = false;
             response.message = "An error occured while fetching registered companies";
-            console.log(err);
             return res.send(response);
         }
         // an array to store company details
@@ -38,9 +38,9 @@ const getRegisteredCompanies = async (req, res, next) => {
     }
     catch (err) {
         // if some error occurred return this
+        console.log(err);
         response.success = false;
         response.message = "An error occured";
-        console.log(err);
         return res.send(response);
     }
 }

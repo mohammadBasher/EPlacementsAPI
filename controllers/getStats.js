@@ -8,6 +8,7 @@ const getStats = (req, res, next) => {
     statsModel.find({ year }, (err, stats) => {
         if (err) {
             // if some error occurred return from here
+            console.log(err);
             response.success = false;
             response.message = "Some error occurred";
             return res.send(response);

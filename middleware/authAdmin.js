@@ -9,6 +9,7 @@ const authAdmin = (req, res, next) => {
     const response = {};
     if (!token) {
         // return if token is not found
+        console.log("Token required");
         response.success = false;
         response.message = "Token required for authorization";
         return res.send(response);
@@ -20,6 +21,7 @@ const authAdmin = (req, res, next) => {
         req.user = decoded;
         // checking whether the token is valid or not
         if (!req.user.email || !req.user.password) {
+            console.log("Invalid token");
             response.success = false;
             response.message = "Invalid token";
             return res.send(response);
@@ -31,12 +33,14 @@ const authAdmin = (req, res, next) => {
         adminModel.findOne({ email }, (err, user) => {
             // return if some error is occurred or admin is not found
             if (err || !user) {
+                console.log("Invalid token");
                 response.success = false;
                 response.message = "Invalid token";
                 return res.send(response);
             }
             // match user password with the password in the database
             if (password != user.password) {
+                console.log("Invalid token");
                 response.success = false;
                 response.message = "Invalid token";
                 return res.send(response);

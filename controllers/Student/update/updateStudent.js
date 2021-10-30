@@ -27,18 +27,16 @@ const updateStudent = (req, res, next) => {
             return res.send(response);
         }
         else if (student.status == "verified") {
-            // If profile is verified return (Because user cann't update details if his profile is verified except resume and photo)
+            // If profile is verified return (Because user can't update details if his profile is verified except resume and photo)
             response.success = false;
             response.message = "Your profile is verified and locked";
             return res.send(response);
         }
         else {
-            // load_data(data,student);
-            // console.log(data);
             // Using data indexes as keys to update only incoming fields in student
             Object.keys(data).forEach((key) => {
-                if (key == "password" || key == "resume" || key == "photo") {
-                    // This will leave password, resume and photo column
+                if (key == "password" || key == "resume" || key == "photo" || key == "credits" || key == "status" || key == "remarks") {
+                    // This should not update these fields
                 }
                 else {
                     student[key] = data[key];

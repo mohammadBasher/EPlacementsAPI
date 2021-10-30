@@ -14,7 +14,7 @@ const addNotice = (req, res, next) => {
         if (err) {
             console.log(err);
             response.success = false;
-            response.message = "Some error occurred";
+            response.message = "An error occurred";
             return res.send(response);
         }
         // Now return saved notice with the response
@@ -48,7 +48,6 @@ const sendNotification = (title, body, topic) => {
         headers: notification_headers,
         body: JSON.stringify(notification_body)
     }).then((response) => {
-        console.log(response.status);
         console.log("Notification sent successfully");
     }).catch((err) => {
         console.log(err);

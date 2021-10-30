@@ -16,9 +16,9 @@ const reduceCredit = (req, res, next) => {
         // if some error occurred or student not found
         // return from here
         if (err || !user) {
+            console.log(err);
             response.success = false;
             response.message = "Some error occurred while fetching student";
-            console.log(err);
             return res.send(response);
         }
         // reduce credits of that student
@@ -35,9 +35,9 @@ const reduceCredit = (req, res, next) => {
         studentModel.findOneAndUpdate({ reg_no }, updatedStudent, (err, user) => {
             // if some error occurred while saving
             if (err) {
+                console.log(err);
                 response.success = false;
                 response.message = "Some error occurred while updating";
-                console.log(err);
                 return res.send(response);
             }
             // finally return response with final credits

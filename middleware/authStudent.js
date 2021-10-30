@@ -9,6 +9,7 @@ const authStudent = (req, res, next) => {
     const response = {};
     if (!token) {
         // return if token is not found
+        console.log("Token required");
         response.success = false;
         response.message = "Token required for authorization";
         return res.send(response);
@@ -20,6 +21,7 @@ const authStudent = (req, res, next) => {
         req.user = decoded;
         // checking whether the token is valid or not
         if (!req.user.reg_no || !req.user.password) {
+            console.log("Invalid token");
             response.success = false;
             response.message = "Invalid token";
             return res.send(response);
@@ -31,12 +33,14 @@ const authStudent = (req, res, next) => {
         studentModel.findOne({ reg_no }, (err, user) => {
             // return if some error is occurred or student is not found
             if (err || !user) {
+                console.log("Invalid token");
                 response.success = false;
                 response.message = "Invalid token";
                 return res.send(response);
             }
             // match user password with the password in the database
             if (password != user.password) {
+                console.log("Invalid token");
                 response.success = false;
                 response.message = "Invalid token";
                 return res.send(response);
