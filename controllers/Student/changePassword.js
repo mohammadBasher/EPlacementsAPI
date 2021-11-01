@@ -7,6 +7,13 @@ const changePassword = (req, res, next) => {
     // getting reg_no and password from the jwt token
     const reg_no = req.user.reg_no;
     const password = req.user.password;
+    // if cPassword field doesn't match with the current password
+    // return from here
+    if(req.body.cPassword!=password){
+        response.status = false;
+        response.message = "Please enter the current password correctly";
+        return res.send(response);
+    }
     studentModel.findOne({ reg_no }, (err, student) => {
         if (err || !student) {
             // If student is not found or some error occurred 

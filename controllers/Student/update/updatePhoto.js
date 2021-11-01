@@ -25,10 +25,7 @@ const updatePhoto = (req, res, next) => {
         }
         else {
             // Changing photo in the found student
-            student.photo = {
-                data: fs.readFileSync(path.join(__dirname + "/../../../" + './public/' + req.file.filename)),
-                contentType: 'image/png'
-            }
+            student.photo = req.body.photoURL;
             // initialise a updateStudent to store updated details
             const updateStudent = student;
             // Update details in the database

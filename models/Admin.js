@@ -14,7 +14,7 @@ const admin = new mongoose.Schema({
         type: String,
         required: true
     },
-    photo: {
+    photoURL: {
         type: String,
         default: ""
     }

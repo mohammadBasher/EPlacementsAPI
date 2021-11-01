@@ -37,10 +37,7 @@ const registerAdmin = (req, res, next) => {
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password, 5),
                 //reading uploaded photo
-                photo: {
-                    data: fs.readFileSync(path.join(__dirname + "/../../" + './public/' + req.file.filename)),
-                    contentType: 'image/png'
-                }
+                photo: req.body.photoURL
             }
             const newAdmin = new adminModel(admin);
             const password = admin.password;

@@ -25,10 +25,7 @@ const updateResume = (req, res, next) => {
         }
         else {
             // updating resume in the found student
-            student.resume = {
-                data: fs.readFileSync(path.join(__dirname + "/../../../" + './public/' + req.file.filename)),
-                contentType: 'pdf'
-            }
+            student.resume = req.body.resumeURL;
             // initialise a updateStudent to store updated details
             const updateStudent = student;
             // Update details in the database
