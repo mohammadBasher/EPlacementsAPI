@@ -11,12 +11,13 @@ const getNotice = (req, res, next) => {
             response.message = "Some error occurred";
             return res.send(response);
         }
+
         // return fetched notices with the response
         response.success = true;
         response.message = "Notice fetched successfully";
         response.notices = notice;
         return res.send(response);
-    }).sort({ time: 'desc' }); // sorting results to display latest at the top
+    }).sort( { timestamp: -1 } );
 }
 
 module.exports = {

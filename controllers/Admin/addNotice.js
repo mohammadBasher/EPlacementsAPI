@@ -6,9 +6,10 @@ const addNotice = (req, res, next) => {
     // fetching title and content of the notice to be added from the request
     const title = req.body.title;
     const content = req.body.content;
+    const timestamp = new Date().getTime();
     const response = {};
     // creating and saving that notice in the Notice collection
-    const newNotice = new noticeModel({ title, content });
+    const newNotice = new noticeModel({ title, content, timestamp });
     newNotice.save((err, notice) => {
         // if some error occurred return from here
         if (err) {

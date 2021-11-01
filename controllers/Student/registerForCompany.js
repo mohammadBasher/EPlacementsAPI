@@ -58,6 +58,7 @@ const registerForCompany = async (req, res, next) => {
                 const registration = data;
                 registration.reg_no = reg_no;
                 registration.year = new Date().getFullYear();
+                registration.timestamp = new Date().getTime();
                 const ifRegister = await registerationModel.findOne({ company_id: data.company_id, reg_no: reg_no });
                 if (!ifRegister) {
                     // if student not register till now

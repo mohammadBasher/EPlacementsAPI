@@ -11,7 +11,7 @@ const notice = new mongoose.Schema({
     },
     timestamp: {
         type: Number,
-        default: new Date().getTime()
+        required: true
     }
 });
 
