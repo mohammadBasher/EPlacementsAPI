@@ -13,7 +13,7 @@ const updateResume = (req, res, next) => {
             // If student is not found or some error occurred return
             console.log("Reg. No. not found");
             response.success = false;
-            response.message = "Some error occurred while finding reg_no";
+            response.message = "An error occurred while finding the student";
             return res.send(response);
         }
         else if (password != student.password) {
@@ -24,6 +24,13 @@ const updateResume = (req, res, next) => {
             return res.send(response);
         }
         else {
+            // If resumeURL is not valid
+            if(req.body.resumeURL == null || req.body.resumeURL == "") {
+                console.log("Invalid resume URL");
+                response.success = true;
+                response.message = "Invalid resume URL";
+                return res.send(response);
+            }
             // updating resume in the found student
             student.resume = req.body.resumeURL;
             // initialise a updateStudent to store updated details
@@ -32,12 +39,16 @@ const updateResume = (req, res, next) => {
             studentModel.findByIdAndUpdate(student._id, updateStudent, (err, student) => {
                 if (err) {
                     console.log(err);
+                    response.success = false;
+                    response.message = "An error occurred";
+                    return res.send(response);
+                }
+                else {
+                    response.success = true;
+                    response.message = "Resume updated successfully";
+                    return res.send(response);
                 }
             });
-            // return success=true with the response
-            response.success = true;
-            response.message = "Resume updated";
-            return res.send(response);
         }
     })
 }

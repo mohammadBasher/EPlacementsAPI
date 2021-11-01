@@ -1,6 +1,4 @@
 const studentModel = require("../../../models/Student");
-const fs = require("fs");
-const path = require("path");
 
 const updatePhoto = (req, res, next) => {
     // response object to be send to student in response
@@ -13,7 +11,7 @@ const updatePhoto = (req, res, next) => {
             // If student is not found or some error occurred return 
             console.log("Reg. No. not found")
             response.success = false;
-            response.message = "Some error occurred while finding reg_no";
+            response.message = "An error occurred while finding the student";
             return res.send(response);
         }
         else if (password != student.password) {
@@ -24,6 +22,13 @@ const updatePhoto = (req, res, next) => {
             return res.send(response);
         }
         else {
+            // If photoURL is not valid
+            if(req.body.photoURL == null || req.body.photoURL == "") {
+                console.log("Invalid photo URL");
+                response.success = true;
+                response.message = "Invalid photo URL";
+                return res.send(response);
+            }
             // Changing photo in the found student
             student.photo = req.body.photoURL;
             // initialise a updateStudent to store updated details
@@ -32,12 +37,16 @@ const updatePhoto = (req, res, next) => {
             studentModel.findByIdAndUpdate(student._id, updateStudent, (err, student) => {
                 if (err) {
                     console.log(err);
+                    response.success = false;
+                    response.message = "An error occurred";
+                    return res.send(response);
+                }
+                else {
+                    response.success = true;
+                    response.message = "Photo updated successfully";
+                    return res.send(response);
                 }
             });
-            // return success=true with the response
-            response.success = true;
-            response.message = "Photo updated";
-            return res.send(response);
         }
     })
 }

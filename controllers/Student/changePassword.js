@@ -40,9 +40,10 @@ const changePassword = (req, res, next) => {
             return res.send(response);
         }
         else {
-            // hash the new password and create
-            student.password = bcrypt.hashSync(new_password, 5);
-            const token = jwt.sign({ new_password, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
+            // hash the new password and create new jwt token
+            const newHash = bcrypt.hashSync(new_password, 5)
+            student.password = newHash;
+            const token = jwt.sign({ newHash, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
             // Updating details in the database
             const updateStudent = student;
             studentModel.findByIdAndUpdate(student._id, updateStudent, (err, student) => {
