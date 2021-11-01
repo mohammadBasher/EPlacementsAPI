@@ -7,11 +7,21 @@ const changePassword = (req, res, next) => {
     // getting reg_no and password from the jwt token
     const reg_no = req.user.reg_no;
     const password = req.user.password;
-    // if cPassword field doesn't match with the current password
-    // return from here
-    if(req.body.cPassword!=password){
-        response.status = false;
-        response.message = "Please enter the current password correctly";
+    // getting current password and new password from user
+    const current_password = req.body.current_password;
+    const new_password = req.body.new_password;
+    // if current password and new password are same
+    if (current_password == new_password) {
+        console.log("Same current and new password");
+        response.success = false;
+        response.message = "Same current and new password";
+        return res.send(response);
+    }
+    // if current password is not correct
+    if (!bcrypt.compareSync(current_password, password)) {
+        console.log("Invalid password");
+        response.success = false;
+        response.message = "Incorrect password";
         return res.send(response);
     }
     studentModel.findOne({ reg_no }, (err, student) => {
@@ -31,9 +41,8 @@ const changePassword = (req, res, next) => {
         }
         else {
             // hash the new password and create
-            student.password = bcrypt.hashSync(req.body.password, 5);
-            const newPassword = student.password;
-            const token = jwt.sign({ newPassword, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
+            student.password = bcrypt.hashSync(new_password, 5);
+            const token = jwt.sign({ new_password, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
             // Updating details in the database
             const updateStudent = student;
             studentModel.findByIdAndUpdate(student._id, updateStudent, (err, student) => {
@@ -44,7 +53,6 @@ const changePassword = (req, res, next) => {
             // returning updated student and token with the response
             response.success = true;
             response.message = "Password changed successfully";
-            response.user = student;
             response.token = token;
             return res.send(response);
         }
