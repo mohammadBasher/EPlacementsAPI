@@ -36,7 +36,6 @@ const registerAdmin = (req, res, next) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password, 5),
-                //reading uploaded photo
                 photo: req.body.photoURL
             }
             const newAdmin = new adminModel(admin);

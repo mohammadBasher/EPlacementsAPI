@@ -74,13 +74,14 @@ const currentOpening = require("./routes/currentOpening");
 //using common routes
 app.use(currentOpening);                        // to get current openings
 
-// default route to get the details of logged in user
 const { getUser } = require('./controllers/getUser');
 const { getNotice } = require('./controllers/getNotice');
+const { getStats } = require('./controllers/getStats');
 const { getContact } = require('./controllers/getContact');
 const { getCompany } = require('./controllers/getCompany');
 app.get('/', getUser);
 app.get('/getNotice', getNotice);
+app.get('/getStats', getStats);
 app.get('/getContact', getContact);
 app.post('/getCompany', getCompany);
 

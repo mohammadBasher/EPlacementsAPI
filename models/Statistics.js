@@ -6,7 +6,7 @@ const statistics = new mongoose.Schema({
         required: true
     },
     data: {
-        type: {},
+        type: Array,
         required: true
     }
 });
