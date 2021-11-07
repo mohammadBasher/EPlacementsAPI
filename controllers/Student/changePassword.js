@@ -11,7 +11,7 @@ const changePassword = (req, res, next) => {
     const current_password = req.body.current_password;
     const new_password = req.body.new_password;
     // if any field is empty return
-    if(!current_password || !new_password){
+    if (!current_password || !new_password) {
         console.log("All fields are required");
         response.success = false;
         response.message = "All fields are required";
