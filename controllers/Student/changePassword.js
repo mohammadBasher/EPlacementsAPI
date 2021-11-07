@@ -6,7 +6,7 @@ const changePassword = (req, res, next) => {
     const response = {};
     // getting reg_no and password from the jwt token
     const reg_no = req.user.reg_no;
-    const password = req.user.password;
+    let password = req.user.password;
     // getting current password and new password from user
     const current_password = req.body.current_password;
     const new_password = req.body.new_password;
@@ -43,7 +43,8 @@ const changePassword = (req, res, next) => {
             // hash the new password and create new jwt token
             const newHash = bcrypt.hashSync(new_password, 5)
             student.password = newHash;
-            const token = jwt.sign({ newHash, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
+            password = newHash;
+            const token = jwt.sign({ password, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
             // Updating details in the database
             const updateStudent = student;
             studentModel.findByIdAndUpdate(student._id, updateStudent, (err, student) => {
