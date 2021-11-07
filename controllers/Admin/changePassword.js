@@ -1,11 +1,11 @@
-const studentModel = require("../../models/Student");
+const adminModel = require("../../models/Admin");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const changePassword = (req, res, next) => {
     const response = {};
-    // getting reg_no and password from the jwt token
-    const reg_no = req.user.reg_no;
+    // getting email and password from the jwt token
+    const email = req.user.email;
     let password = req.user.password;
     // getting current password and new password from user
     const current_password = req.body.current_password;
@@ -31,15 +31,15 @@ const changePassword = (req, res, next) => {
         response.message = "Incorrect password";
         return res.send(response);
     }
-    studentModel.findOne({ reg_no }, (err, student) => {
-        if (err || !student) {
-            // If student is not found or some error occurred 
-            console.log("Student not found");
+    adminModel.findOne({ email }, (err, admin) => {
+        if (err || !admin) {
+            // If admin is not found or some error occurred 
+            console.log("admin not found");
             response.success = false;
             response.message = "An error occured, try again";
             return res.send(response);
         }
-        else if (password != student.password) {
+        else if (password != admin.password) {
             // If password doesn't match
             console.log("Invalid password");
             response.success = false;
@@ -49,18 +49,18 @@ const changePassword = (req, res, next) => {
         else {
             // hash the new password and create new jwt token
             const newHash = bcrypt.hashSync(new_password, 5)
-            student.password = newHash;
+            admin.password = newHash;
             password = newHash;
             // creating token with the new password
-            const token = jwt.sign({ password, reg_no }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
+            const token = jwt.sign({ password, email }, process.env.TOKEN_KEY, { expiresIn: "100000h" });
             // Updating details in the database
-            const updateStudent = student;
-            studentModel.findByIdAndUpdate(student._id, updateStudent, (err, student) => {
+            const updateadmin = admin;
+            adminModel.findByIdAndUpdate(admin._id, updateadmin, (err, admin) => {
                 if (err) {
                     console.log(err);
                 }
             });
-            // returning updated student and token with the response
+            // returning updated admin and token with the response
             response.success = true;
             response.message = "Password changed successfully";
             response.token = token;
