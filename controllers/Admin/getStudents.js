@@ -13,7 +13,7 @@ const getStudents = (req, res, next) => {
         query = { status: status };
     }
     // searching students collection with the formed query
-    studentModel.find(query, (err, users) => {
+    studentModel.find(query, { name: 1, reg_no: 1, branch: 1, course: 1, status: 1 }, (err, users) => {
         // if some error occurred return from here
         if (err) {
             console.log(err);
