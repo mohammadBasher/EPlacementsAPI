@@ -1,3 +1,4 @@
+// Schema for previous year Stats
 const mongoose = require("mongoose");
 
 const statistics = new mongoose.Schema({

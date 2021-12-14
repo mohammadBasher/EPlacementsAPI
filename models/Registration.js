@@ -1,3 +1,4 @@
+// Schema for registration details with student reg_no and company id...
 const mongoose = require("mongoose");
 
 const registration = new mongoose.Schema({

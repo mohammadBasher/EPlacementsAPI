@@ -1,3 +1,4 @@
+// Schema for Company details
 const mongoose = require("mongoose");
 
 const company = new mongoose.Schema({

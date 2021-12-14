@@ -1,3 +1,4 @@
+// Schema for grievances
 const mongoose = require("mongoose");
 
 const grievance = new mongoose.Schema({

@@ -1,5 +1,6 @@
 const studentModel = require("../../models/Student");
 
+// function to get student details
 const getStudents = (req, res, next) => {
     const response = {};
     // if get_status field is present in the request it return students with that status only
@@ -29,6 +30,7 @@ const getStudents = (req, res, next) => {
     });
 }
 
+// function to set the student's status
 const setStatus = (req, res, next) => {
     // it require student reg_no whose status needed to be changed 
     // and a set_status field to which the status needed to be changed

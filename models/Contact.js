@@ -1,3 +1,4 @@
+// Schema for TPRs contact details
 const mongoose = require("mongoose");
 
 const contact = new mongoose.Schema({

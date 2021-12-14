@@ -1,3 +1,4 @@
+// Schema for notices
 const mongoose = require("mongoose");
 
 const notice = new mongoose.Schema({

@@ -1,3 +1,4 @@
+// Schema for interview experiences
 const mongoose = require("mongoose");
 
 const experience = new mongoose.Schema({

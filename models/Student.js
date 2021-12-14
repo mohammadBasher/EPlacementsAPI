@@ -1,3 +1,4 @@
+// Schema for student's details
 const mongoose = require("mongoose");
 
 const student = new mongoose.Schema({

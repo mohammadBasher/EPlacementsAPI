@@ -1,6 +1,6 @@
 // Entry point of the REST API
 
-require("dotenv").config();
+require("dotenv").config();          // to configure environment variables or .env file
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -36,6 +36,8 @@ const { getStudents, setStatus } = require("./routes/Admin/getStudents");
 const addNotice = require("./routes/Admin/addNotice");
 const addContact = require("./routes/Admin/addContact");
 const changePasswordAdmin = require("./routes/Admin/changePassword");
+const getGrievance = require("./routes/Admin/getGrievance");
+const resolveGrievance = require("./routes/Admin/resolveGrievance");
 
 // using admin routes
 app.use('/admin', registerAdmin);           // to register an admin
@@ -48,6 +50,8 @@ app.use('/admin', setStatus);               // to set status of a student by giv
 app.use('/admin', addNotice);               // to publish a notice
 app.use('/admin', addContact);              // to add a new contact
 app.use('/admin', changePasswordAdmin);     // to change password of an admin account
+app.use('/admin',getGrievance);             // to get grievances
+app.use('/admin',resolveGrievance);         // to resolve grievances
 
 // importing student routes
 const registerStudent = require("./routes/Students/registerStudent");
@@ -58,6 +62,7 @@ const updateResume = require("./routes/Students/update/updateResume");
 const changePassword = require("./routes/Students/changePassword");
 const registerForCompany = require("./routes/Students/registerForCompany");
 const getRegisteredCompanies = require("./routes/Students/getRegisteredCompanies");
+const addGrievance = require('./routes/Students/addGrievance');
 
 //using Student routes
 app.use('/student', registerStudent);        // to register a student
@@ -69,6 +74,7 @@ app.use('/student', updateResume);           // to update student resume
 app.use('/student', changePassword);         // to change student password
 app.use('/student', registerForCompany);     // to register for a company
 app.use('/student', getRegisteredCompanies); // to get companies for which student registered
+app.use('/student',addGrievance);            // to add grievances
 
 //importing common routes
 const currentOpening = require("./routes/currentOpening");
@@ -76,11 +82,11 @@ const currentOpening = require("./routes/currentOpening");
 //using common routes
 app.use(currentOpening);                        // to get current openings
 
-const { getUser } = require('./controllers/getUser');
-const { getNotice } = require('./controllers/getNotice');
-const { getStats } = require('./controllers/getStats');
-const { getContact } = require('./controllers/getContact');
-const { getCompany } = require('./controllers/getCompany');
+const { getUser } = require('./controllers/getUser');       // to get the details of the logged in user
+const { getNotice } = require('./controllers/getNotice');   // to get the published notices
+const { getStats } = require('./controllers/getStats');     // to get the previous year placement stats
+const { getContact } = require('./controllers/getContact'); // to get the contact details of TPRs
+const { getCompany } = require('./controllers/getCompany'); // to get the details of the company
 app.get('/', getUser);
 app.get('/getNotice', getNotice);
 app.get('/getStats', getStats);

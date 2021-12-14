@@ -21,7 +21,7 @@ const registerStudent = (req, res, next) => {
             console.log(err);
             response.success = false;
             response.message = "An error occurred, try again";
-            res.send(response);
+            return res.send(response);
         }
         if (user) {
             // if student exist send response

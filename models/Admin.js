@@ -1,3 +1,4 @@
+// Schema for admin details
 const mongoose = require("mongoose");
 
 const admin = new mongoose.Schema({
