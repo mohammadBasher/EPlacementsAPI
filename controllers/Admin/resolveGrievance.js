@@ -6,7 +6,7 @@ const resolveGrievance = (req, res, next) => {
     const status = req.body.status;     // getting status to set from request's body
     const response = {}
     // finding grievance with id 
-    grievanceModel.findOne({id},(err,grievance)=>{
+    grievanceModel.findOne({_id:id},(err,grievance)=>{
         // if some error occurred return from here
         if(err){
             console.log("Some error occurred while finding grievance");
