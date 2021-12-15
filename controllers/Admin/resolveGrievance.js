@@ -10,7 +10,7 @@ const resolveGrievance = (req, res, next) => {
         // if some error occurred return from here
         if(err){
             console.log("Some error occurred while finding grievance");
-            response.status = false;
+            response.success = false;
             response.message = "Some error occurred while finding grievance";
             return res.send(response);
         }
@@ -21,12 +21,12 @@ const resolveGrievance = (req, res, next) => {
         newGrievance.save((err,grievance)=>{
             // if some error occurred return from here
             if(err){
-                response.status = false;
+                response.success = false;
                 response.message = "Some error occurred while updating status";
                 return res.send(response);
             }
             // return response as success = true
-            response.status = true;
+            response.success = true;
             response.message = "Grievance status updated successfully";
             return res.send(response);
         })
