@@ -7,7 +7,7 @@ const getGrievance = (req, res, next) => {
     // toSearch will be passed to find function with status if available
     const toSearch = {};
     // if status found in request add it to toSearch
-    if(status){
+    if(status=="resolved" || status=="unresolved"){
         toSearch.status = status;
     }
     // else pass empty toSearch object to fetch all the grievances
