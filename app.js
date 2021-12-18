@@ -38,6 +38,7 @@ const addContact = require("./routes/Admin/addContact");
 const changePasswordAdmin = require("./routes/Admin/changePassword");
 const getGrievance = require("./routes/Admin/getGrievance");
 const resolveGrievance = require("./routes/Admin/resolveGrievance");
+const updateAdmin = require("./routes/Admin/updateAdmin");
 
 // using admin routes
 app.use('/admin', registerAdmin);           // to register an admin
@@ -52,6 +53,7 @@ app.use('/admin', addContact);              // to add a new contact
 app.use('/admin', changePasswordAdmin);     // to change password of an admin account
 app.use('/admin',getGrievance);             // to get grievances
 app.use('/admin',resolveGrievance);         // to resolve grievances
+app.use('/admin',updateAdmin);              // to update admin
 
 // importing student routes
 const registerStudent = require("./routes/Students/registerStudent");
