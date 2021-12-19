@@ -28,8 +28,6 @@ const { authAdmin } = require("./middleware/authAdmin");
 const { authStudent } = require("./middleware/authStudent");
 
 // using middleware for authentication
-app.use('/admin', authAdmin);               // middleware to authenticate admin
-app.use('/student', authStudent);            // middleware to authenticate a student
 
 
 // importing admin routes
@@ -43,6 +41,7 @@ const { getGrievance,resolveGrievance } = require('./routes/Admin/Grievance');
 // using admin routes
 app.use('/admin', registerAdmin);           // to register an admin
 app.use('/admin', loginAdmin);              // to login admin
+app.use('/admin', authAdmin);               // middleware to authenticate admin
 app.use('/admin', addCompany);              // to add a visiting company
 app.use('/admin', reduceCredit);            // route to reduce credit of a student by reg_no and number of credits to reduce
 app.use('/admin', getStudents);             // to get all status with status in get_status field
@@ -62,6 +61,7 @@ const { addGrievance } = require('./routes/Students/Grievance');
 //using Student routes
 app.use('/student', registerStudent);        // to register a student
 app.use('/student', loginStudent);           // to login a student
+app.use('/student', authStudent);            // middleware to authenticate a student
 app.use('/student', updateStudent);          // to update student information
 app.use('/student', updatePhoto);            // to update student photo
 app.use('/student', updateResume);           // to update student resume
