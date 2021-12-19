@@ -5,7 +5,7 @@ const { registerForCompany,getRegisteredCompanies } = require("../../controllers
 const router = express.Router();
 
 const register = router.post('/registerForCompany', registerForCompany);
-const getCompanies = router.post('/getRegisteredCompanies',getRegisteredCompanies);
+const getCompanies = router.get('/getRegisteredCompanies',getRegisteredCompanies);
 
 module.exports = {
     registerForCompany: register,
