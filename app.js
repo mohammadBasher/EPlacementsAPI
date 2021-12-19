@@ -37,6 +37,7 @@ const { getStudents, setStatus, reduceCredit } = require("./routes/Admin/student
 const { addNotice } = require("./routes/Admin/notice");
 const { addContact } = require("./routes/Admin/contact");
 const { getGrievance,resolveGrievance } = require('./routes/Admin/Grievance');
+const { getInsights } = require("./routes/Admin/insights");
 
 // using admin routes
 app.use('/admin', registerAdmin);           // to register an admin
@@ -52,6 +53,7 @@ app.use('/admin', changePasswordAdmin);     // to change password of an admin ac
 app.use('/admin',getGrievance);             // to get grievances
 app.use('/admin',resolveGrievance);         // to resolve grievances
 app.use('/admin',updateAdmin);              // to update admin
+app.use('/admin',getInsights);              // to get placement related stats
 
 // importing student routes
 const { loginStudent,registerStudent,updateStudent,updatePhoto,updateResume,changePassword } = require('./routes/Students/profile');
