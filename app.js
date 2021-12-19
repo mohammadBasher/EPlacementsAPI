@@ -27,23 +27,22 @@ mongoose.connect(process.env.MONGO_URL, {
 const { authAdmin } = require("./middleware/authAdmin");
 const { authStudent } = require("./middleware/authStudent");
 
+// using middleware for authentication
+app.use('/admin', authAdmin);               // middleware to authenticate admin
+app.use('/student', authStudent);            // middleware to authenticate a student
+
+
 // importing admin routes
-const registerAdmin = require("./routes/Admin/registerAdmin");
-const loginAdmin = require("./routes/Admin/loginAdmin");
-const addCompany = require("./routes/Admin/addCompany");
-const reduceCredit = require("./routes/Admin/reduceCredit");
-const { getStudents, setStatus } = require("./routes/Admin/getStudents");
-const addNotice = require("./routes/Admin/addNotice");
-const addContact = require("./routes/Admin/addContact");
-const changePasswordAdmin = require("./routes/Admin/changePassword");
-const getGrievance = require("./routes/Admin/getGrievance");
-const resolveGrievance = require("./routes/Admin/resolveGrievance");
-const updateAdmin = require("./routes/Admin/updateAdmin");
+const { registerAdmin,loginAdmin,updateAdmin,changePasswordAdmin } = require('./routes/Admin/profile');
+const { addCompany } = require("./routes/Admin/company");
+const { getStudents, setStatus, reduceCredit } = require("./routes/Admin/student");
+const { addNotice } = require("./routes/Admin/notice");
+const { addContact } = require("./routes/Admin/contact");
+const { getGrievance,resolveGrievance } = require('./routes/Admin/Grievance');
 
 // using admin routes
 app.use('/admin', registerAdmin);           // to register an admin
 app.use('/admin', loginAdmin);              // to login admin
-app.use('/admin', authAdmin);               // middleware to authenticate admin
 app.use('/admin', addCompany);              // to add a visiting company
 app.use('/admin', reduceCredit);            // route to reduce credit of a student by reg_no and number of credits to reduce
 app.use('/admin', getStudents);             // to get all status with status in get_status field
@@ -56,20 +55,13 @@ app.use('/admin',resolveGrievance);         // to resolve grievances
 app.use('/admin',updateAdmin);              // to update admin
 
 // importing student routes
-const registerStudent = require("./routes/Students/registerStudent");
-const loginStudent = require("./routes/Students/loginStudent");
-const updateStudent = require("./routes/Students/update/updateStudent");
-const updatePhoto = require("./routes/Students/update/updatePhoto");
-const updateResume = require("./routes/Students/update/updateResume");
-const changePassword = require("./routes/Students/changePassword");
-const registerForCompany = require("./routes/Students/registerForCompany");
-const getRegisteredCompanies = require("./routes/Students/getRegisteredCompanies");
-const addGrievance = require('./routes/Students/addGrievance');
+const { loginStudent,registerStudent,updateStudent,updatePhoto,updateResume,changePassword } = require('./routes/Students/profile');
+const { registerForCompany,getRegisteredCompanies } = require('./routes/Students/company');
+const { addGrievance } = require('./routes/Students/Grievance');
 
 //using Student routes
 app.use('/student', registerStudent);        // to register a student
 app.use('/student', loginStudent);           // to login a student
-app.use('/student', authStudent);            // middleware to authenticate a student
 app.use('/student', updateStudent);          // to update student information
 app.use('/student', updatePhoto);            // to update student photo
 app.use('/student', updateResume);           // to update student resume
@@ -78,22 +70,18 @@ app.use('/student', registerForCompany);     // to register for a company
 app.use('/student', getRegisteredCompanies); // to get companies for which student registered
 app.use('/student',addGrievance);            // to add grievances
 
-//importing common routes
-const currentOpening = require("./routes/currentOpening");
+const { getUser } = require('./controllers/user');      
+const { getNotice } = require('./controllers/notice');  
+const { getStats } = require('./controllers/stats');    
+const { getCompany,currentOpening } = require('./controllers/company');
+const { getContact } = require('./controllers/contact');
 
-//using common routes
-app.use(currentOpening);                        // to get current openings
-
-const { getUser } = require('./controllers/getUser');       // to get the details of the logged in user
-const { getNotice } = require('./controllers/getNotice');   // to get the published notices
-const { getStats } = require('./controllers/getStats');     // to get the previous year placement stats
-const { getContact } = require('./controllers/getContact'); // to get the contact details of TPRs
-const { getCompany } = require('./controllers/getCompany'); // to get the details of the company
-app.get('/', getUser);
-app.get('/getNotice', getNotice);
-app.get('/getStats', getStats);
-app.get('/getContact', getContact);
-app.post('/getCompany', getCompany);
+app.get('/', getUser);                          // to get the detail of current logged in user
+app.get('/getNotice', getNotice);               // to get the notices
+app.get('/getStats', getStats);                 // to get the placement status
+app.get('/currentOpening', currentOpening);     // to get the current openings
+app.post('/getCompany', getCompany);            // to get the company by its id
+app.get('/getContact',getContact);              // to get contact details of TPRs
 
 //defining port to run the server
 const PORT = process.env.PORT || 3000;

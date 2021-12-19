@@ -46,6 +46,7 @@ const authStudent = (req, res, next) => {
                 return res.send(response);
             }
             // calling next function to complete further process
+            console.log("Student is authenticated");
             next();
         })
     } catch (err) {

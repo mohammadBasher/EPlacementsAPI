@@ -46,6 +46,7 @@ const authAdmin = (req, res, next) => {
                 return res.send(response);
             }
             // calling next function to complete further process
+            console.log("Admin is authenticated");
             next();
         })
     } catch (err) {
