@@ -7,7 +7,7 @@ const experience = new mongoose.Schema({
         required: true
     },
     reg_no: {
-        type: Number,
+        type: String,
         required: true
     },
     student_name: {

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const grievance = new mongoose.Schema({
     reg_no: {
-        type: Number,
+        type: String,
         required: true
     },
     name: {

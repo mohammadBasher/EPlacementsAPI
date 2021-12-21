@@ -7,7 +7,7 @@ const registration = new mongoose.Schema({
         required: true
     },
     reg_no: {
-        type: Number,
+        type: String,
         required: true
     },
     year: {
