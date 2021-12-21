@@ -59,6 +59,7 @@ app.use('/admin',getInsights);              // to get placement related stats
 const { loginStudent,registerStudent,updateStudent,updatePhoto,updateResume,changePassword } = require('./routes/Students/profile');
 const { registerForCompany,getRegisteredCompanies } = require('./routes/Students/company');
 const { addGrievance } = require('./routes/Students/Grievance');
+const { addExperience,getExperience,checkEligibility } = require('./routes/Students/experience');
 
 //using Student routes
 app.use('/student', registerStudent);        // to register a student
@@ -71,6 +72,10 @@ app.use('/student', changePassword);         // to change student password
 app.use('/student', registerForCompany);     // to register for a company
 app.use('/student', getRegisteredCompanies); // to get companies for which student registered
 app.use('/student',addGrievance);            // to add grievances
+app.use('/student',addExperience);           // to add experience
+app.use('/student',getExperience);           // to get experiences
+app.use('/student',checkEligibility);        // to check eligibility
+
 
 const { getUser } = require('./controllers/user');      
 const { getNotice } = require('./controllers/notice');  

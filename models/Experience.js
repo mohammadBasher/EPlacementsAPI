@@ -6,8 +6,8 @@ const experience = new mongoose.Schema({
         type: String,
         required: true
     },
-    student_id: {
-        type: mongoose.SchemaTypes.ObjectId,
+    reg_no: {
+        type: Number,
         required: true
     },
     student_name: {
