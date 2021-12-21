@@ -9,13 +9,25 @@ const studentModel = require('../../models/Student');
 const registrationModel = require('../../models/Registration');
 const companyModel = require('../../models/Company');
 
-const addExperience = (req,res,next) => {
+const addExperience = async (req,res,next) => {
+    const response = {}
     // fetching experience from request's body
     const experience = req.body;
+    const reg_no = req.user.reg_no;
     // saving current time in timestamp
     experience.timestamp = new Date().getTime();
+    // finding if student already return an experience
+    const previousExperience = await experienceModel.findOne({reg_no});
+    // if an experience found with the reg_no number
+    // update that experience
+    if(previousExperience){
+        const newExperience = await experienceModel.findOneAndUpdate({reg_no},experience,{new:true});
+        response.success = true;
+        response.message = "Experience updated successfully";
+        response.experience = newExperience;
+        return res.send(response);
+    }
     const newExperience = new experienceModel(experience);
-    const response = {}
     // saving experience
     newExperience.save((err,experience)=>{
         // if some error occurred while saving return from here
