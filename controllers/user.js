@@ -1,4 +1,3 @@
-
 // This file contains functions for
 // getUser - to get the details of current logged in user
 

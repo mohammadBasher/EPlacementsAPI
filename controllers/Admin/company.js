@@ -1,4 +1,3 @@
-
 // This file contains Functions for
 // addCompany - to add a company
 // addResult - to anounce result for a company
@@ -51,17 +50,17 @@ const addCompany = (req, res, next) => {
     });
 }
 
-const addResult = async (req,res,next) => {
+const addResult = async (req, res, next) => {
     const response = {};
     // fetching reg_nos and company id from request's body
     const reg_nos = req.body.reg_nos;
     const company_id = req.body.company_id;
-    try{
+    try {
         // traversing through all registration ids
-        for(const reg_no of reg_nos){
-            const registration = await registrationModel.findOne({reg_no});
+        for (const reg_no of reg_nos) {
+            const registration = await registrationModel.findOne({ reg_no });
             // if any of the registration is not found return
-            if(!registration){
+            if (!registration) {
                 response.success = false;
                 response.message = "Some of the Registrations are not found or student already placed";
                 return res.send(response);
@@ -69,9 +68,9 @@ const addResult = async (req,res,next) => {
             // set the status of the found registration as placed
             registration.status = "placed";
             // find the student with registration number
-            const student = await studentModel.findOne({reg_no});
+            const student = await studentModel.findOne({ reg_no });
             // check if the student already placed
-            if(student.status=="placed"){
+            if (student.status == "placed") {
                 response.success = false;
                 response.message = "Some of the students are already placed";
                 console.log("Some of the students are already placed");
@@ -81,25 +80,25 @@ const addResult = async (req,res,next) => {
             console.log(student.status);
             // update his status to placed
             student.status = "placed";
-            const updatedStudent = await studentModel.findOneAndUpdate({reg_no},student);
-            const updatedRegistration = await registrationModel.findOneAndUpdate({reg_no},registration);
+            const updatedStudent = await studentModel.findOneAndUpdate({ reg_no }, student);
+            const updatedRegistration = await registrationModel.findOneAndUpdate({ reg_no }, registration);
         }
         // find company with id
-        const company = await companyModel.findOne({_id:company_id});
+        const company = await companyModel.findOne({ _id: company_id });
         // if not found return from here
-        if(!company){
+        if (!company) {
             response.success = false;
             response.message = "Company is not found with that company id";
             return res.send(response);
         }
         // set the status of company to result announced
         company.status = "result announced";
-        companyModel.findOneAndUpdate({_id:company_id},company);
+        companyModel.findOneAndUpdate({ _id: company_id }, company);
         response.success = true;
         response.message = "Results have been added successfully";
         // return success response
         return res.send(response);
-    }catch(err){
+    } catch (err) {
         console.log(err);
         response.success = false;
         response.message = "Some error occurred";

@@ -1,4 +1,3 @@
-
 // This file contains function for 
 // getStudents - to get the details of students with their status
 // setStatus - to change the status of a student

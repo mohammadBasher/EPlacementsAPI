@@ -1,4 +1,3 @@
-
 // This file contains functions for 
 // getGrievance - to get the grievance accorrding to their status
 // resolveGrievance - to change the status of a grievance

@@ -1,4 +1,3 @@
-
 // This file contains functions for 
 // getInsights - which return no. of placedStudents, no. of companies visited, no. of registrations, no. of verified students
 

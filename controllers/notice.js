@@ -1,4 +1,3 @@
-
 // This file contains functions for
 // getNotice - to get all the posted notices
 
@@ -21,7 +20,7 @@ const getNotice = (req, res, next) => {
         response.message = "Notice fetched successfully";
         response.notices = notice;
         return res.send(response);
-    }).sort( { timestamp: -1 } );
+    }).sort({ timestamp: -1 });
 }
 
 module.exports = {

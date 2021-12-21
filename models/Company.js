@@ -70,6 +70,10 @@ const company = new mongoose.Schema({
         type: String,
         default: "NA"
     },
+    status: {
+        type: String,
+        default: "Open for registration"
+    }
 });
 
 module.exports = new mongoose.model('company', company);

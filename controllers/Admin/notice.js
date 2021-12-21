@@ -1,4 +1,3 @@
-
 // This file contains functions for
 // addNotice - to add a notice
 

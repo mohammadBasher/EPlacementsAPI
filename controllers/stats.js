@@ -1,4 +1,3 @@
-
 // This file contains functions for
 // getStats - to get placement stats for past years
 

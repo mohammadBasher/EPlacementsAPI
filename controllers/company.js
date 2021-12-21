@@ -1,4 +1,3 @@
-
 // This file contains functions for
 // getCompany - to get the details of a company by its id
 // currentOpening - to get companies available to register
