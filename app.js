@@ -36,9 +36,9 @@ const { getGrievance, resolveGrievance } = require('./routes/Admin/grievance');
 const { getInsights } = require("./routes/Admin/insights");
 
 // Using Admin routes
-app.use('/admin', authAdmin);               // middleware to authenticate admin
 app.use('/admin', registerAdmin);           // to register an admin
 app.use('/admin', loginAdmin);              // to login admin
+app.use('/admin', authAdmin);               // middleware to authenticate admin
 app.use('/admin', addCompany);              // to add a visiting company
 app.use('/admin', addResult);               // to announce result for a company
 app.use('/admin', reduceCredit);            // route to reduce credit of a student by reg_no and number of credits to reduce
@@ -59,9 +59,9 @@ const { addGrievance } = require('./routes/Students/grievance');
 const { addExperience, getExperience, checkEligibility } = require('./routes/Students/experience');
 
 // Using Student routes
-app.use('/student', authStudent);            // middleware to authenticate a student
 app.use('/student', registerStudent);        // to register a student
 app.use('/student', loginStudent);           // to login a student
+app.use('/student', authStudent);            // middleware to authenticate a student
 app.use('/student', updateStudent);          // to update student information
 app.use('/student', updatePhoto);            // to update student photo
 app.use('/student', updateResume);           // to update student resume
