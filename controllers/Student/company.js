@@ -1,4 +1,3 @@
-
 // This file contain functions for
 // registerForCompany - to register a student for a company
 // getRegisteredCompanies - to get companies in which a student has already registered

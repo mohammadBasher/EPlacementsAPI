@@ -1,4 +1,3 @@
-
 // This file contains functions for 
 // addGrievance - to add a Grievance
 
@@ -12,15 +11,15 @@ const addGrievance = (req, res, next) => {
     const reg_no = req.user.reg_no;
     const response = {}
     // if req.user is empty then use in not authenticated
-    if(!req.user){
+    if (!req.user) {
         console.log("User is not logged in");
         response.success = false;
         response.message = "User is not logged in";
         return res.send(response);
     }
     // searching student with reg_no to get remaining details
-    studentModel.findOne({reg_no},(err,user)=>{
-        if(err){
+    studentModel.findOne({ reg_no }, (err, user) => {
+        if (err) {
             console.log(err);
             response.success = false;
             response.message = "Some error occurred while fetching the student's details";
@@ -34,10 +33,10 @@ const addGrievance = (req, res, next) => {
         grievance.status = "unresolved";            // set status as unresolved
         // saving the grievance
         const newGrievance = new grievanceModel(grievance);
-        newGrievance.save((err,grievance)=>{
+        newGrievance.save((err, grievance) => {
             // if some error occurred return
             // with success as false;
-            if(err){
+            if (err) {
                 console.log(err);
                 response.success = false;
                 response.message = "Some error occurred while saving the grievance";

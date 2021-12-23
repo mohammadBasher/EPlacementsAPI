@@ -1,4 +1,3 @@
-
 // This file contains functions for 
 // addResult - to announced result for a company by company_id and reg_no number of selected students
 // loadCompanies - to fetch list of companies whose result is not announced yet
@@ -37,7 +36,7 @@ const addResult = async (req, res, next) => {
             }
             console.log(student.status);
             // update his status to placed
-            student.status = "placed";    
+            student.status = "placed";
             const company = await companyModel.findOne({ _id: company_id });
             // saving company name in student's object to be helpful while searching students
             student.company_name = company.name;
@@ -67,18 +66,18 @@ const addResult = async (req, res, next) => {
     }
 }
 
-const loadCompanies = async (req,res,next) => {
+const loadCompanies = async (req, res, next) => {
     // initialising response object
     const response = {}
-    try{
+    try {
         // fetch companies whose status is not equal to result announced
-        const companies = await companyModel.find({status : { $ne: "result announced" } },{name:1});
+        const companies = await companyModel.find({ status: { $ne: "result announced" } }, { name: 1 });
         response.success = true;
         response.message = "Companies loaded successfully";
         // return the companies with the response
         response.companies = companies;
         return res.send(response);
-    }catch(err){
+    } catch (err) {
         // if some error occurred return success as false
         console.log(err);
         response.success = false;
@@ -87,25 +86,25 @@ const loadCompanies = async (req,res,next) => {
     }
 }
 
-const loadStudents = async (req,res,next)=>{
+const loadStudents = async (req, res, next) => {
     const response = {}
     // fetch company_id from request's body
     const company_id = req.body.company_id;
-    try{
+    try {
         // search registrationModel for students registered for that company
-        const registration = await registrationModel.find({company_id},{reg_no:1});
+        const registration = await registrationModel.find({ company_id }, { reg_no: 1 });
         const student = []
-        for(var i = 0;i<registration.length;i++){
-            const temp = await studentModel.findOne({reg_no:registration[i].reg_no},{name:1});
+        for (var i = 0; i < registration.length; i++) {
+            const temp = await studentModel.findOne({ reg_no: registration[i].reg_no }, { name: 1 });
             registration[i].name = temp.name;
-            student.push({_id:registration[i]._id,reg_no:registration[i].reg_no,name:temp.name});
+            student.push({ _id: registration[i]._id, reg_no: registration[i].reg_no, name: temp.name });
         }
         response.success = true;
         response.message = "students fetched successfully";
         // return fetched students registration numbers to announce selected students
         response.students = student;
         return res.send(response);
-    }catch(err){
+    } catch (err) {
         // if some error occurred return success as false
         console.log(err);
         response.success = false;

@@ -63,7 +63,6 @@ const resolveGrievance = (req, res, next) => {
     })
 }
 
-
 module.exports = {
     getGrievance,
     resolveGrievance

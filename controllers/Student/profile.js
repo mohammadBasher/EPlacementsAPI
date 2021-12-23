@@ -1,4 +1,3 @@
-
 // This file contains functions for
 // loginStudent - to login a student
 // registerStudent - to register a student
@@ -187,7 +186,7 @@ const updateResume = (req, res, next) => {
         }
         else {
             // If resumeURL is not valid
-            if(req.body.resumeURL == null || req.body.resumeURL == "") {
+            if (req.body.resumeURL == null || req.body.resumeURL == "") {
                 console.log("Invalid resume URL");
                 response.success = true;
                 response.message = "Invalid resume URL";
@@ -238,7 +237,7 @@ const updatePhoto = (req, res, next) => {
         }
         else {
             // If photoURL is not valid
-            if(req.body.photoURL == null || req.body.photoURL == "") {
+            if (req.body.photoURL == null || req.body.photoURL == "") {
                 console.log("Invalid photo URL");
                 response.success = true;
                 response.message = "Invalid photo URL";
