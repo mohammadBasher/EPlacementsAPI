@@ -93,12 +93,17 @@ const loadStudents = async (req,res,next)=>{
     const company_id = req.body.company_id;
     try{
         // search registrationModel for students registered for that company
-        const students = await registrationModel.find({company_id},{reg_no:1});
-        
+        const registration = await registrationModel.find({company_id},{reg_no:1});
+        const student = []
+        for(var i = 0;i<registration.length;i++){
+            const temp = await studentModel.findOne({reg_no:registration[i].reg_no},{name:1});
+            registration[i].name = temp.name;
+            student.push({_id:registration[i]._id,reg_no:registration[i].reg_no,name:temp.name});
+        }
         response.success = true;
         response.message = "students fetched successfully";
         // return fetched students registration numbers to announce selected students
-        response.students = students;
+        response.students = student;
         return res.send(response);
     }catch(err){
         // if some error occurred return success as false
