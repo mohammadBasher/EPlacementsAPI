@@ -28,7 +28,8 @@ const { authStudent } = require("./middleware/authStudent");
 
 // Importing Admin routes
 const { registerAdmin, loginAdmin, updateAdmin, changePasswordAdmin } = require('./routes/Admin/profile');
-const { addCompany, addResult } = require("./routes/Admin/company");
+const { addCompany } = require("./routes/Admin/company");
+const { addResult,loadCompanies,loadStudents } = require("./routes/Admin/result");
 const { getStudents, setStatus, reduceCredit } = require("./routes/Admin/student");
 const { addNotice } = require("./routes/Admin/notice");
 const { addContact } = require("./routes/Admin/contact");
@@ -41,6 +42,8 @@ app.use('/admin', loginAdmin);              // to login admin
 app.use('/admin', authAdmin);               // middleware to authenticate admin
 app.use('/admin', addCompany);              // to add a visiting company
 app.use('/admin', addResult);               // to announce result for a company
+app.use('/admin', loadCompanies);           // to fetch companies whose result is not announced yet
+app.use('/admin',loadStudents);             // to fetch the list of students registered for a company by company_id
 app.use('/admin', reduceCredit);            // route to reduce credit of a student by reg_no and number of credits to reduce
 app.use('/admin', getStudents);             // to get all status with status in get_status field
 app.use('/admin', setStatus);               // to set status of a student by giving reg_no and a set_status field in which the status will be change

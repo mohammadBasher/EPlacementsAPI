@@ -96,7 +96,7 @@ const checkEligibility = async (req,res,next) => {
         }
         // else no registration is found with the given credentials
         else{
-            response.success = true;
+            response.success = false;
             response.isEligible = false;
             response.message = "You are not eligible to write an experience";
             return res.send(response);
