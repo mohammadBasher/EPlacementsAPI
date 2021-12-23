@@ -60,6 +60,7 @@ const { loginStudent, registerStudent, updateStudent, updatePhoto, updateResume,
 const { registerForCompany, getRegisteredCompanies } = require('./routes/Students/company');
 const { addGrievance } = require('./routes/Students/grievance');
 const { addExperience, getExperience, checkEligibility } = require('./routes/Students/experience');
+const { searchStudent } = require('./routes/Students/search');
 
 // Using Student routes
 app.use('/student', registerStudent);        // to register a student
@@ -75,6 +76,7 @@ app.use('/student', addGrievance);           // to add grievances
 app.use('/student', addExperience);          // to add experience
 app.use('/student', getExperience);          // to get experiences
 app.use('/student', checkEligibility);       // to check eligibility
+app.use('/student',searchStudent);           // to return a list of verified and registered students
 
 // Importing Common routes
 const { getUser } = require('./controllers/user');

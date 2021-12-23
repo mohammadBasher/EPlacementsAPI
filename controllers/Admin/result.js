@@ -1,3 +1,9 @@
+
+// This file contains functions for 
+// addResult - to announced result for a company by company_id and reg_no number of selected students
+// loadCompanies - to fetch list of companies whose result is not announced yet
+// loadStudents - to fetch reg_nos of students registered for a company through company id
+
 const companyModel = require("../../models/Company");
 const registrationModel = require("../../models/Registration");
 const studentModel = require('../../models/Student');
@@ -31,7 +37,10 @@ const addResult = async (req, res, next) => {
             }
             console.log(student.status);
             // update his status to placed
-            student.status = "placed";
+            student.status = "placed";    
+            const company = await companyModel.findOne({ _id: company_id });
+            // saving company name in student's object to be helpful while searching students
+            student.company_name = company.name;
             const updatedStudent = await studentModel.findOneAndUpdate({ reg_no }, student);
             const updatedRegistration = await registrationModel.findOneAndUpdate({ reg_no }, registration);
         }
@@ -85,6 +94,7 @@ const loadStudents = async (req,res,next)=>{
     try{
         // search registrationModel for students registered for that company
         const students = await registrationModel.find({company_id},{reg_no:1});
+        
         response.success = true;
         response.message = "students fetched successfully";
         // return fetched students registration numbers to announce selected students

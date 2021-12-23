@@ -158,6 +158,10 @@ const student = new mongoose.Schema({
     intern_desc: {
         type: String,
         default: ""
+    },
+    company_name: {
+        type: String,
+        default: ""
     }
 });
 
