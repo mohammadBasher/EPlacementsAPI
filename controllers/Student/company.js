@@ -77,21 +77,21 @@ const registerForCompany = async (req, res, next) => {
                         return res.send(response);
                     }
                     // checking if user's cpi is fulfilling minimum condition or not
-                    else if (company.min_cpi <= student.cpi) {
+                    else if (company.min_cpi >= student.cpi) {
                         console.log("Cpi too less");
                         response.success = false;
                         response.message = "Your cpi is less than minimum cpi criteria";
                         return res.send(response);
                     }
                     // checking if user's 10 %` is fulfilling minimum condition or not
-                    else if (company.min_10 <= student.percent_10) {
+                    else if (company.min_10 >= student.percent_10) {
                         console.log("10th % too less");
                         response.success = false;
                         response.message = "Your 10th % is less than minimum % criteria";
                         return res.send(response);
                     }
                     // checking if user's 12 %` is fulfilling minimum condition or not
-                    else if (company.min_12 <= student.percent_12) {
+                    else if (company.min_12 >= student.percent_12) {
                         console.log("12th % too less");
                         response.success = false;
                         response.message = "Your 12th % is less than minimum % criteria";
