@@ -110,8 +110,25 @@ const reduceCredit = (req, res, next) => {
     })
 }
 
+const getDetail = (req,res,next) => {
+    const reg_no = req.body.reg_no;
+    const response = {}
+    studentModel.findOne({reg_no},(err,student)=>{
+        if(err){
+            response.success = false;
+            response.message = "Some error occurred";
+            return res.send(response);
+        }
+        response.success = true;
+        response.message = "Student fetched successfully";
+        response.student = student;
+        return res.send(response);
+    })
+}
+
 module.exports = {
     getStudents,
     setStatus,
-    reduceCredit
+    reduceCredit,
+    getDetail
 }

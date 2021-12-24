@@ -30,7 +30,7 @@ const { authStudent } = require("./middleware/authStudent");
 const { registerAdmin, loginAdmin, updateAdmin, changePasswordAdmin } = require('./routes/Admin/profile');
 const { addCompany } = require("./routes/Admin/company");
 const { addResult,loadCompanies,loadStudents } = require("./routes/Admin/result");
-const { getStudents, setStatus, reduceCredit } = require("./routes/Admin/student");
+const { getStudents, setStatus, reduceCredit, getDetail } = require("./routes/Admin/student");
 const { addNotice } = require("./routes/Admin/notice");
 const { addContact } = require("./routes/Admin/contact");
 const { getGrievance, resolveGrievance } = require('./routes/Admin/grievance');
@@ -48,6 +48,7 @@ app.use('/admin', reduceCredit);            // route to reduce credit of a stude
 app.use('/admin', getStudents);             // to get all status with status in get_status field
 app.use('/admin', setStatus);               // to set status of a student by giving reg_no and a set_status field in which the status will be change
 app.use('/admin', addNotice);               // to publish a notice
+app.use('/admin',getDetail);                // to get detail of a student by its reg no.
 app.use('/admin', addContact);              // to add a new contact
 app.use('/admin', changePasswordAdmin);     // to change password of an admin account
 app.use('/admin', getGrievance);            // to get grievances
