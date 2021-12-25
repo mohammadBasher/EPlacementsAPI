@@ -57,7 +57,8 @@ app.use('/admin', updateAdmin);             // to update admin
 app.use('/admin', getInsights);             // to get placement related stats
 
 // Importing Student routes
-const { loginStudent, registerStudent, updateStudent, updatePhoto, updateResume, changePassword } = require('./routes/Students/profile');
+const { loginStudent, registerStudent } = require('./routes/Students/profile');
+const { updateStudent, updatePhoto, updateResume, changePassword } = require('./routes/Students/editProfile');
 const { registerForCompany, getRegisteredCompanies } = require('./routes/Students/company');
 const { addGrievance } = require('./routes/Students/grievance');
 const { addExperience, getExperience, checkEligibility } = require('./routes/Students/experience');
