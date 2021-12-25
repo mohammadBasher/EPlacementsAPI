@@ -2,6 +2,7 @@
 // getStudents - to get the details of students with their status
 // setStatus - to change the status of a student
 // reduceCredit - to reduce credit of a student
+// getDetail - to get the details of a student by his reg_no
 
 const studentModel = require("../../models/Student");
 
@@ -111,14 +112,19 @@ const reduceCredit = (req, res, next) => {
 }
 
 const getDetail = (req,res,next) => {
+    // fetching student's reg_no from the request
     const reg_no = req.body.reg_no;
+    // creating response object
     const response = {}
+    // searching student with that reg_no
     studentModel.findOne({reg_no},(err,student)=>{
+        // if some error occcurred return with success as false 
         if(err){
             response.success = false;
             response.message = "Some error occurred";
             return res.send(response);
         }
+        // else return the fetched student object with the response
         response.success = true;
         response.message = "Student fetched successfully";
         response.student = student;

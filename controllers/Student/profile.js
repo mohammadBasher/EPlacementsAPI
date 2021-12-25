@@ -54,10 +54,10 @@ const loginStudent = (req, res, next) => {
 const registerStudent = (req, res, next) => {
     // Checking if any of the field is empty
     const response = {};
-    if (!req.body.reg_no || !req.body.password) {
+    if (!req.body.reg_no || !req.body.password || !req.body.name) {
         console.log("Empty fields")
         response.success = false;
-        response.message = "Registration no. and password are required";
+        response.message = "Name, registration no. and password are required";
         return res.send(response);
     }
 
@@ -81,6 +81,7 @@ const registerStudent = (req, res, next) => {
             // if student is not found then register a new student
             const student = {
                 reg_no: req.body.reg_no,
+                name: req.body.name,
                 password: bcrypt.hashSync(req.body.password, 5), // saving password with hashing
                 status: "registered", // This is to check current status of the student i.e. registered, verified, unverified, offered etc.
                 credits: "10" // intially 10 credits will be alloted to every newly registered student
@@ -143,6 +144,30 @@ const updateStudent = (req, res, next) => {
                     // This should not update these fields
                 }
                 else {
+                    // validating 10th percentage
+                    if(key=="percent_10"){
+                        if(data[key]<33 || data[key]>100){
+                            response.success = false;
+                            response.message = "Please enter valid percentage for 10th";
+                            return res.send(response);
+                        }
+                    }
+                    // validating 12th percentage
+                    if(key == "percent_12"){
+                        if(data[key]<33 || data[key]>100){
+                            response.success = false;
+                            response.message = "Please enter valid percentage for 12th";
+                            return res.send(response);
+                        }
+                    }
+                    // validating cpi
+                    if(key=="cpi"){
+                        if(data[key]<4 || data[key]>10){
+                            response.success = false;
+                            response.message = "Please enter valid cpi";
+                            return res.send(response);
+                        }
+                    }
                     student[key] = data[key];
                 }
             });
