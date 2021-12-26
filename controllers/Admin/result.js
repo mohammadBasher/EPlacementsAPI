@@ -6,12 +6,18 @@
 const companyModel = require("../../models/Company");
 const registrationModel = require("../../models/Registration");
 const studentModel = require('../../models/Student');
+const noticeModel = require('../../models/Notice');
+
+const { sendNotification } = require('../Admin/Notification');
 
 const addResult = async (req, res, next) => {
     const response = {};
     // fetching reg_nos and company id from request's body
     const reg_nos = req.body.reg_nos;
     const company_id = req.body.company_id;
+    var title = "";
+    var content = "Dear All, We are pleased to announce the following students got placed in ";
+    const placed_students = [];
     try {
         // traversing through all registration ids
         for (const reg_no of reg_nos) {
@@ -34,7 +40,7 @@ const addResult = async (req, res, next) => {
                 console.log(reg_no);
                 return res.send(response);
             }
-            console.log(student.status);
+            placed_students.push({name:student.name,reg_no:student.reg_no,branch:student.branch});
             // update his status to placed
             student.status = "placed";
             const company = await companyModel.findOne({ _id: company_id });
@@ -43,6 +49,7 @@ const addResult = async (req, res, next) => {
             const updatedStudent = await studentModel.findOneAndUpdate({ reg_no }, student);
             const updatedRegistration = await registrationModel.findOneAndUpdate({ reg_no }, registration);
         }
+        // console.log(placed_students);
         // find company with id
         const company = await companyModel.findOne({ _id: company_id });
         // if not found return from here
@@ -51,12 +58,29 @@ const addResult = async (req, res, next) => {
             response.message = "Company is not found with that company id";
             return res.send(response);
         }
+        title = company.name;
+        title = title + " || Placement Drive";
+        content = content + company.name + " :- ";
+        for(var i = 0;i<placed_students.length;i++){
+            content = content + placed_students[i].name + "(" + placed_students[i].reg_no + ")  ";
+        }
+        console.log(title);
+        console.log(content);
         // set the status of company to result announced
         company.status = "result announced";
         companyModel.findOneAndUpdate({ _id: company_id }, company);
         response.success = true;
         response.message = "Results have been added successfully";
+        // create and save notice to database
+        const timestamp = new Date().getTime();
+        const newNotice = new noticeModel({title,content,timestamp});
+        const notice = await newNotice.save();
+        // sending notification to all the users
+        sendNotification(title,content,"allDevices");
         // return success response
+        response.notice = notice;
+        response.students = placed_students;
+        response.company = company;
         return res.send(response);
     } catch (err) {
         console.log(err);
