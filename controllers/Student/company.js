@@ -47,6 +47,12 @@ const registerForCompany = async (req, res, next) => {
                 response.message = "You have an active backlog. So you are not eligible to apply";
                 return res.send(response);
             }
+            else if(student.status == "placed"){
+                // If student is already placed
+                response.success = false;
+                response.message = "You are already placed";
+                return res.send(response);
+            }
             else if (student.status != "verified") {
                 // If student's status is not verified 
                 // whether registered,completed,unverified or placed
