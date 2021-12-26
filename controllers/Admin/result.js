@@ -68,7 +68,7 @@ const addResult = async (req, res, next) => {
         console.log(content);
         // set the status of company to result announced
         company.status = "result announced";
-        companyModel.findOneAndUpdate({ _id: company_id }, company);
+        const updatedCompany = await companyModel.findOneAndUpdate({ _id: company_id }, company);
         response.success = true;
         response.message = "Results have been added successfully";
         // create and save notice to database
