@@ -37,13 +37,20 @@ const getStudents = (req, res, next) => {
 }
 
 // function to set the student's status
-const setStatus = (req, res, next) => {
+const setStatus = async (req, res, next) => {
     // it require student reg_no whose status needed to be changed 
     // and a set_status field to which the status needed to be changed
     const response = {};
     const reg_no = req.body.reg_no;
     const newStatus = req.body.set_status;
     const remark = req.body.remark;
+    const student = await studentModel.findOne({reg_no},{ status: 1 });
+    // if the status of the student is placed then return from here
+    if(student.status=="placed"){
+        response.success = false;
+        response.message = "Status of a placed student cann't be changed";
+        return res.send(response);
+    }
     // updating the status in the collection
     studentModel.findOneAndUpdate({ reg_no }, { status: newStatus, remarks: remark }, (err, user) => {
         // if some error occurred return from here

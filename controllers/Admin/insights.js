@@ -15,6 +15,7 @@ const getInsights = async (req,res,next) => {
         response.placedStudents = await studentModel.find({status:"placed"}).count();
         // calculating number of verified students
         response.verfiedStudents = await studentModel.find({status:"verified"}).count();
+        response.verfiedStudents += response.placedStudents;
         // calculating number of companies visited
         response.companiesVisited = await companyModel.find({}).count();
         response.success = true;                            // marks success as true
