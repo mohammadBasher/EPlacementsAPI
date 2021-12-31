@@ -60,9 +60,9 @@ const addResult = async (req, res, next) => {
         }
         title = company.name;
         title = title + " || Placement Drive";
-        content = content + company.name + " :- ";
-        for(var i = 0;i<placed_students.length;i++){
-            content = content + placed_students[i].name + "(" + placed_students[i].reg_no + ")  ";
+        content = content + company.name + " :- \n";
+        for(var i = 1;i<=placed_students.length;i++){
+            content = content + i + ". " + placed_students[i].name + " (" + placed_students[i].reg_no + ") \n";
         }
         console.log(title);
         console.log(content);

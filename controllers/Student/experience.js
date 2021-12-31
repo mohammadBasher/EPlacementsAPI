@@ -9,7 +9,6 @@ const registrationModel = require('../../models/Registration');
 const companyModel = require('../../models/Company');
 
 const addExperience = async (req, res, next) => {
-    console.log(req);
     const response = {}
     // fetching experience from request's body
     const experience = req.body;
